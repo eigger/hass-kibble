@@ -1,6 +1,7 @@
 """Small Home Assistant stubs for testing the API client without installing HA."""
 
 import sys
+from datetime import datetime, timezone
 from enum import StrEnum
 from types import ModuleType
 
@@ -21,7 +22,8 @@ class _Platform(StrEnum):
 
 class _Coordinator(_Generic):
     def __init__(self, *args, **kwargs):
-        pass
+        self.hass = args[0] if args else None
+        self.data = None
 
 
 class _Entity(_Generic):
@@ -82,4 +84,9 @@ _module(
 )
 _module("homeassistant.components.button", ButtonEntity=_Entity)
 _module("homeassistant.helpers.entity_platform", AddConfigEntryEntitiesCallback=object)
-_module("homeassistant.helpers.entity", EntityCategory=type("EntityCategory", (), {}))
+_module(
+    "homeassistant.helpers.entity",
+    EntityCategory=type("EntityCategory", (), {"DIAGNOSTIC": "diagnostic"}),
+)
+_module("homeassistant.util", __path__=[])
+_module("homeassistant.util.dt", utcnow=lambda: datetime.now(timezone.utc))

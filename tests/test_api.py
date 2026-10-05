@@ -132,7 +132,17 @@ def test_request_timeout_is_wrapped_as_connection_error():
         "http://kibble",
         "token",
     )
-    with pytest.raises(KibbleConnectionError):
+    with pytest.raises(KibbleConnectionError, match="timed out"):
+        run(api.async_get_state())
+
+
+def test_empty_request_timeout_still_reports_timeout_type():
+    api = KibbleApi(
+        FakeSession(FakeResponse(error=TimeoutError())),
+        "http://kibble",
+        "token",
+    )
+    with pytest.raises(KibbleConnectionError, match="TimeoutError"):
         run(api.async_get_state())
 
 
