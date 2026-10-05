@@ -1,0 +1,31 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Connect to Kibble",
+        "description": "Enter the Kibble server URL and a read-only API token with the state:read scope.",
+        "data": { "url": "Server URL", "api_token": "API token" }
+      },
+      "reauth_confirm": {
+        "title": "Re-authenticate Kibble",
+        "description": "Enter a replacement read-only API token for this pet.",
+        "data": { "api_token": "API token" }
+      }
+    },
+    "error": {
+      "invalid_auth": "The token is invalid or does not have the state:read scope.",
+      "cannot_connect": "Cannot connect to Kibble or its response is invalid.",
+      "wrong_pet": "This token belongs to a different pet.",
+      "unknown": "Unexpected error. Check the integration logs."
+    },
+    "abort": { "already_configured": "This pet is already configured." }
+  },
+  "entity": {
+    "sensor": {
+      "daily_summary": { "name": "Today's events" },
+      "overdue_medication": { "name": "Overdue medication doses" },
+      "reminders": { "name": "Reminders" }
+    },
+    "button": { "refresh": { "name": "Refresh now" } }
+  }
+}
