@@ -305,6 +305,7 @@ class KibbleFetchErrorSensor(KibbleCoordinatorSensor):
     _attr_translation_key = "fetch_errors"
     _attr_icon = "mdi:cloud-alert-outline"
     _attr_entity_category = EntityCategory.DIAGNOSTIC
+    _attr_state_class = SensorStateClass.MEASUREMENT
 
     def __init__(self, coordinator: KibbleCoordinator, entry: ConfigEntry) -> None:
         super().__init__(coordinator, entry)
