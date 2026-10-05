@@ -59,6 +59,14 @@ _EVENT_TYPE_ICONS = {
     "weight": "mdi:scale",
 }
 
+_MEASUREMENTS = (
+    # event key, metric key, field, default unit, icon, is latest-value metric
+    ("meal", "meal_offered", "quantityOffered", "g", "mdi:food", False),
+    ("meal", "meal_consumed", "quantity", "g", "mdi:food", False),
+    ("water", "water_intake", "quantity", "ml", "mdi:water", False),
+    ("weight", "weight", "lastQuantity", "kg", "mdi:scale", True),
+)
+
 
 def _device_info(entry: ConfigEntry, state: dict[str, Any]) -> DeviceInfo:
     pet = state["pet"]
@@ -86,12 +94,27 @@ async def async_setup_entry(
     ]
     known_keys: set[str] = set()
     entities.extend(_new_event_sensors(coordinator, entry, pet_id, state, known_keys))
+    known_measurements: set[str] = set()
+    entities.extend(
+        _new_measurement_sensors(
+            coordinator, entry, pet_id, state, known_measurements
+        )
+    )
     async_add_entities(entities)
 
     @callback
     def add_new_event_type_sensors() -> None:
         new_entities = _new_event_sensors(
             coordinator, entry, pet_id, coordinator.data or {}, known_keys
+        )
+        new_entities.extend(
+            _new_measurement_sensors(
+                coordinator,
+                entry,
+                pet_id,
+                coordinator.data or {},
+                known_measurements,
+            )
         )
         if new_entities:
             async_add_entities(new_entities)
@@ -125,6 +148,50 @@ def _new_event_sensors(
     return entities
 
 
+def _new_measurement_sensors(
+    coordinator: KibbleCoordinator,
+    entry: ConfigEntry,
+    pet_id: str,
+    state: dict[str, Any],
+    known_measurements: set[str],
+) -> list[SensorEntity]:
+    """Create stable, unit-specific sensors for food, water, and weight values."""
+    entities: list[SensorEntity] = []
+    rows = list(state.get("todaySummary", []))
+    rows.extend(state.get("lastEvents", []))
+    for event_key, metric_key, field, default_unit, icon, is_latest in _MEASUREMENTS:
+        units = {default_unit}
+        for row in rows:
+            if row.get("eventTypeKey") != event_key:
+                continue
+            row_unit = row.get("lastQuantityUnit") or row.get("unit") or row.get("defaultUnit")
+            if row_unit:
+                units.add(str(row_unit))
+            for total in row.get("totals", []):
+                unit = total.get("unit") or row.get("defaultUnit") or default_unit
+                if unit:
+                    units.add(str(unit))
+        for unit in units:
+            key = f"{event_key}:{metric_key}:{unit}"
+            if key in known_measurements:
+                continue
+            known_measurements.add(key)
+            entities.append(
+                KibbleMeasurementSensor(
+                    coordinator,
+                    entry,
+                    pet_id,
+                    event_key,
+                    metric_key,
+                    field,
+                    unit,
+                    icon,
+                    is_latest,
+                )
+            )
+    return entities
+
+
 class KibbleCoordinatorSensor(CoordinatorEntity[KibbleCoordinator], SensorEntity):
     """Base sensor bound to the selected Kibble pet."""
 
@@ -140,6 +207,9 @@ class KibbleCoordinatorSensor(CoordinatorEntity[KibbleCoordinator], SensorEntity
 class KibbleDailySummarySensor(KibbleCoordinatorSensor):
     """Daily total event count with the full state attached as attributes."""
 
+    _unrecorded_attributes = frozenset(
+        {"today_summary", "today_events", "last_events", "medication", "reminders"}
+    )
     _attr_translation_key = "daily_summary"
     _attr_icon = "mdi:clipboard-text-clock-outline"
 
@@ -159,6 +229,8 @@ class KibbleDailySummarySensor(KibbleCoordinatorSensor):
             "generated_at": state.get("generatedAt"),
             "today_since": state.get("todaySince"),
             "today_summary": self._today_summary,
+            "today_events": state.get("todayEvents", []),
+            "today_events_truncated": state.get("todayEventsTruncated", False),
             "last_events": state.get("lastEvents", []),
             "medication": state.get("medication", {}),
             "reminders": state.get("reminders", []),
@@ -279,4 +351,103 @@ class KibbleEventTypeSensor(KibbleCoordinatorSensor):
             "last_scale_value": row.get("lastScaleValue"),
             "last_quantity": row.get("lastQuantity"),
             "last_quantity_unit": row.get("lastQuantityUnit"),
+        }
+
+
+class KibbleMeasurementSensor(KibbleCoordinatorSensor):
+    """A unit-specific daily amount or latest measurement sensor."""
+
+    _attr_state_class = SensorStateClass.MEASUREMENT
+
+    def __init__(
+        self,
+        coordinator: KibbleCoordinator,
+        entry: ConfigEntry,
+        pet_id: str,
+        event_type_key: str,
+        metric_key: str,
+        field: str,
+        unit: str,
+        icon: str,
+        is_latest: bool,
+    ) -> None:
+        super().__init__(coordinator, entry)
+        self._event_type_key = event_type_key
+        self._field = field
+        self._unit = unit
+        self._is_latest = is_latest
+        self._attr_translation_key = metric_key
+        self._attr_translation_placeholders = {"unit": unit}
+        self._attr_native_unit_of_measurement = unit
+        self._attr_icon = icon
+        self._attr_unique_id = f"{pet_id}_{event_type_key}_{metric_key}_{unit}"
+
+    @property
+    def _summary_row(self) -> dict[str, Any] | None:
+        return next(
+            (
+                row
+                for row in self.coordinator.data.get("todaySummary", [])
+                if row.get("eventTypeKey") == self._event_type_key
+            ),
+            None,
+        )
+
+    @property
+    def _last_event(self) -> dict[str, Any] | None:
+        return next(
+            (
+                row
+                for row in self.coordinator.data.get("lastEvents", [])
+                if row.get("eventTypeKey") == self._event_type_key
+            ),
+            None,
+        )
+
+    @property
+    def native_value(self) -> int | float | None:
+        if self._is_latest:
+            summary = self._summary_row or {}
+            last_event = self._last_event or {}
+            candidates = (
+                (
+                    summary.get(self._field),
+                    summary.get("lastQuantityUnit") or summary.get("defaultUnit"),
+                ),
+                (last_event.get("quantity"), last_event.get("unit")),
+            )
+            for value, unit in candidates:
+                if (
+                    isinstance(value, (int, float))
+                    and str(unit or self._unit) == self._unit
+                ):
+                    return value
+            return None
+
+        total = 0.0
+        has_unknown_amount = False
+        for row in self.coordinator.data.get("todaySummary", []):
+            if row.get("eventTypeKey") != self._event_type_key:
+                continue
+            unit_totals = row.get("totals", [])
+            if not unit_totals and row.get("count", 0) > 0:
+                return None
+            for unit_total in unit_totals:
+                unit = unit_total.get("unit") or row.get("defaultUnit") or self._unit
+                if str(unit) != self._unit:
+                    continue
+                value = unit_total.get(self._field)
+                if isinstance(value, (int, float)):
+                    total += value
+                else:
+                    has_unknown_amount = True
+        return None if has_unknown_amount else total
+
+    @property
+    def extra_state_attributes(self) -> dict[str, Any]:
+        row = self._summary_row or self._last_event or {}
+        return {
+            "event_type_key": self._event_type_key,
+            "last_occurred_at": row.get("lastOccurredAt") or row.get("occurredAt"),
+            "unit": self._unit,
         }

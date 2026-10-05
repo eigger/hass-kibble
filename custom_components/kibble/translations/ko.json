@@ -23,6 +23,10 @@
   "entity": {
     "sensor": {
       "daily_summary": { "name": "오늘 기록 수" },
+      "meal_offered": { "name": "사료 제공량 ({unit})" },
+      "meal_consumed": { "name": "사료 섭취량 ({unit})" },
+      "water_intake": { "name": "물 섭취량 ({unit})" },
+      "weight": { "name": "최근 체중 ({unit})" },
       "overdue_medication": { "name": "복약 지연 횟수" },
       "reminders": { "name": "리마인더" },
       "event_type_care": { "name": "케어" },

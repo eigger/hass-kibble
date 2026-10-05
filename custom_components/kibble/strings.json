@@ -26,6 +26,10 @@
   "entity": {
     "sensor": {
       "daily_summary": { "name": "Today's events" },
+      "meal_offered": { "name": "Food offered ({unit})" },
+      "meal_consumed": { "name": "Food consumed ({unit})" },
+      "water_intake": { "name": "Water consumed ({unit})" },
+      "weight": { "name": "Latest weight ({unit})" },
       "overdue_medication": { "name": "Overdue medication doses" },
       "reminders": { "name": "Reminders" },
       "event_type_care": { "name": "Care" },
