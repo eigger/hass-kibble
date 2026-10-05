@@ -80,7 +80,9 @@ _module("homeassistant.helpers.device_registry", DeviceInfo=dict)
 _module(
     "homeassistant.components.sensor",
     SensorEntity=_Entity,
-    SensorStateClass=type("SensorStateClass", (), {"MEASUREMENT": "measurement"}),
+    SensorStateClass=type(
+        "SensorStateClass", (), {"MEASUREMENT": "measurement", "TOTAL": "total"}
+    ),
 )
 _module("homeassistant.components.button", ButtonEntity=_Entity)
 _module("homeassistant.helpers.entity_platform", AddConfigEntryEntitiesCallback=object)
@@ -89,4 +91,8 @@ _module(
     EntityCategory=type("EntityCategory", (), {"DIAGNOSTIC": "diagnostic"}),
 )
 _module("homeassistant.util", __path__=[])
-_module("homeassistant.util.dt", utcnow=lambda: datetime.now(timezone.utc))
+_module(
+    "homeassistant.util.dt",
+    utcnow=lambda: datetime.now(timezone.utc),
+    parse_datetime=lambda value: datetime.fromisoformat(value.replace("Z", "+00:00")),
+)
