@@ -14,7 +14,7 @@ A **read-only** custom Home Assistant integration for Kibble. It polls the daily
 3. Go to **Settings → Devices & services → Add integration → Kibble**.
 4. Enter the Kibble server URL and a `state:read` API token bound to the pet.
 
-Issue a read-only token for a selected pet from **Kibble → Settings → Integration tokens**. The plaintext is displayed once, immediately after creation, so copy it then.
+Issue a read-only token for a selected pet from **Kibble → More → API explorer → Integration tokens**. The plaintext is displayed once, immediately after creation, so copy it then.
 
 ## Entities
 
