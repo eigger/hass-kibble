@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from datetime import datetime
 from typing import Any
 
 from homeassistant.components.sensor import SensorEntity, SensorStateClass
@@ -11,6 +12,7 @@ from homeassistant.helpers.device_registry import DeviceInfo
 from homeassistant.helpers.entity import EntityCategory
 from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
+from homeassistant.util import dt as dt_util
 
 from . import KibbleRuntimeData
 from .const import DOMAIN
@@ -206,7 +208,20 @@ class KibbleCoordinatorSensor(CoordinatorEntity[KibbleCoordinator], SensorEntity
         self._attr_device_info = _device_info(entry, coordinator.data)
 
 
-class KibbleDailySummarySensor(KibbleCoordinatorSensor):
+class KibbleDailyTotalSensor(KibbleCoordinatorSensor):
+    """A daily total that resets at Kibble's today boundary."""
+
+    _attr_state_class = SensorStateClass.TOTAL
+
+    @property
+    def last_reset(self) -> datetime | None:
+        today_since = self.coordinator.data.get("todaySince")
+        if not isinstance(today_since, str):
+            return None
+        return dt_util.parse_datetime(today_since)
+
+
+class KibbleDailySummarySensor(KibbleDailyTotalSensor):
     """Daily total event count with the full state attached as attributes."""
 
     _unrecorded_attributes = frozenset(
@@ -308,7 +323,7 @@ class KibbleFetchErrorSensor(KibbleCoordinatorSensor):
         }
 
 
-class KibbleEventTypeSensor(KibbleCoordinatorSensor):
+class KibbleEventTypeSensor(KibbleDailyTotalSensor):
     """One sensor per event type that has recorded history."""
 
     def __init__(
@@ -383,8 +398,6 @@ class KibbleEventTypeSensor(KibbleCoordinatorSensor):
 class KibbleMeasurementSensor(KibbleCoordinatorSensor):
     """A unit-specific daily amount or latest measurement sensor."""
 
-    _attr_state_class = SensorStateClass.MEASUREMENT
-
     def __init__(
         self,
         coordinator: KibbleCoordinator,
@@ -402,11 +415,25 @@ class KibbleMeasurementSensor(KibbleCoordinatorSensor):
         self._field = field
         self._unit = unit
         self._is_latest = is_latest
+        self._attr_state_class = (
+            SensorStateClass.MEASUREMENT
+            if is_latest
+            else SensorStateClass.TOTAL
+        )
         self._attr_translation_key = metric_key
         self._attr_translation_placeholders = {"unit": unit}
         self._attr_native_unit_of_measurement = unit
         self._attr_icon = icon
         self._attr_unique_id = f"{pet_id}_{event_type_key}_{metric_key}_{unit}"
+
+    @property
+    def last_reset(self) -> datetime | None:
+        if self._is_latest:
+            return None
+        today_since = self.coordinator.data.get("todaySince")
+        if not isinstance(today_since, str):
+            return None
+        return dt_util.parse_datetime(today_since)
 
     @property
     def _summary_row(self) -> dict[str, Any] | None:

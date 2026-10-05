@@ -20,7 +20,8 @@ Issue a read-only token for a selected pet from **Kibble → More → API explor
 
 - **Today's events**: Total event count for today. Per-event-type counts and unit-separated totals are available in its `today_summary` attribute.
 - **Daily event list**: The `today_events` attribute lists event time, type, offered and consumed amounts, product/preset, note and medication course, newest first. It includes up to 100 events; `today_events_truncated` indicates when more exist.
-- **Measurement sensors**: Food offered, food consumed and water intake show today's totals by unit. Weight shows the latest recorded value.
+- **Daily total sensors**: Today's event count, per-event counts, food offered/consumed and water intake are totals that reset at Kibble's today boundary.
+- **Current measurement sensors**: Weight shows the latest recorded value; overdue medication and active reminders show their current counts.
 - **Overdue medication doses**: Number of medication slots past their scheduled time, with course details.
 - **Reminders**: Number of active reminders, with the list as an attribute.
 - **Consecutive fetch errors**: Number of consecutive failed requests. The `last_error`, `last_error_at` and `last_success_at` attributes show the latest error and successful fetch times.
