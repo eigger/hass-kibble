@@ -15,6 +15,50 @@ from . import KibbleRuntimeData
 from .const import DOMAIN
 from .coordinator import KibbleCoordinator
 
+_EVENT_TYPE_KEYS = {
+    "care",
+    "meal",
+    "medication",
+    "note",
+    "observation",
+    "pee",
+    "play",
+    "poop",
+    "remedy",
+    "supplement",
+    "symptom",
+    "temperature",
+    "treat",
+    "vaccination",
+    "vet_visit",
+    "vomit",
+    "walk",
+    "water",
+    "weight",
+}
+
+_EVENT_TYPE_ICONS = {
+    "care": "mdi:hand-heart",
+    "meal": "mdi:food",
+    "medication": "mdi:pill",
+    "note": "mdi:note-text",
+    "observation": "mdi:eye",
+    "pee": "mdi:water-outline",
+    "play": "mdi:toy-brick",
+    "poop": "mdi:emoticon-poop",
+    "remedy": "mdi:pill",
+    "supplement": "mdi:flask",
+    "symptom": "mdi:heart-pulse",
+    "temperature": "mdi:thermometer",
+    "treat": "mdi:cookie",
+    "vaccination": "mdi:needle",
+    "vet_visit": "mdi:stethoscope",
+    "vomit": "mdi:emoticon-sick",
+    "walk": "mdi:walk",
+    "water": "mdi:water",
+    "weight": "mdi:scale",
+}
+
 
 def _device_info(entry: ConfigEntry, state: dict[str, Any]) -> DeviceInfo:
     pet = state["pet"]
@@ -129,7 +173,7 @@ class KibbleOverdueMedicationSensor(KibbleCoordinatorSensor):
     """Number of medication doses whose scheduled time has passed."""
 
     _attr_translation_key = "overdue_medication"
-    _attr_icon = "mdi:pill-clock"
+    _attr_icon = "mdi:pill"
     _attr_state_class = SensorStateClass.MEASUREMENT
 
     def __init__(self, coordinator: KibbleCoordinator, entry: ConfigEntry) -> None:
@@ -169,8 +213,6 @@ class KibbleReminderSensor(KibbleCoordinatorSensor):
 class KibbleEventTypeSensor(KibbleCoordinatorSensor):
     """One sensor per event type that has recorded history."""
 
-    _attr_icon = "mdi:paw"
-
     def __init__(
         self,
         coordinator: KibbleCoordinator,
@@ -180,7 +222,16 @@ class KibbleEventTypeSensor(KibbleCoordinatorSensor):
     ) -> None:
         super().__init__(coordinator, entry)
         self._event_type_key = str(row["eventTypeKey"])
-        self._attr_name = str(row.get("label") or self._event_type_key)
+        if self._event_type_key in _EVENT_TYPE_KEYS:
+            self._attr_translation_key = f"event_type_{self._event_type_key}"
+        else:
+            label = row.get("label")
+            if label and not str(label).startswith("eventType."):
+                self._attr_name = str(label)
+            else:
+                fallback = str(label or self._event_type_key).removeprefix("eventType.")
+                self._attr_name = fallback.replace("_", " ").title()
+        self._attr_icon = _EVENT_TYPE_ICONS.get(self._event_type_key, "mdi:paw")
         self._attr_unique_id = f"{pet_id}_{self._event_type_key}_today"
 
     @property
