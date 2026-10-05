@@ -5,6 +5,7 @@ from types import SimpleNamespace
 from custom_components.kibble.sensor import (
     KibbleDailySummarySensor,
     KibbleEventTypeSensor,
+    KibbleFetchErrorSensor,
     _new_event_sensors,
 )
 
@@ -56,3 +57,23 @@ def test_daily_sensor_sums_today_summary_rows():
     sensor = KibbleDailySummarySensor(coordinator, entry)
 
     assert sensor.native_value == 5
+
+
+def test_fetch_error_sensor_exposes_count_and_latest_error_details():
+    coordinator = SimpleNamespace(
+        data={"pet": {"id": "pet-1", "name": "Bori"}},
+        consecutive_errors=2,
+        last_error="TimeoutError",
+        last_error_at="2026-10-05T13:00:00+00:00",
+        last_success_at="2026-10-05T12:55:00+00:00",
+    )
+    entry = SimpleNamespace(unique_id="pet-1", data={"url": "http://kibble"})
+
+    sensor = KibbleFetchErrorSensor(coordinator, entry)
+
+    assert sensor.native_value == 2
+    assert sensor.extra_state_attributes == {
+        "last_error": "TimeoutError",
+        "last_error_at": "2026-10-05T13:00:00+00:00",
+        "last_success_at": "2026-10-05T12:55:00+00:00",
+    }

@@ -29,6 +29,7 @@
       "weight": { "name": "최근 체중 ({unit})" },
       "overdue_medication": { "name": "복약 지연 횟수" },
       "reminders": { "name": "리마인더" },
+      "fetch_errors": { "name": "연속 조회 오류 횟수" },
       "event_type_care": { "name": "케어" },
       "event_type_meal": { "name": "급여" },
       "event_type_medication": { "name": "복약" },

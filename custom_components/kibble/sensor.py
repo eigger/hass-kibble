@@ -8,6 +8,7 @@ from homeassistant.components.sensor import SensorEntity, SensorStateClass
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant, callback
 from homeassistant.helpers.device_registry import DeviceInfo
+from homeassistant.helpers.entity import EntityCategory
 from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 
@@ -91,6 +92,7 @@ async def async_setup_entry(
         KibbleDailySummarySensor(coordinator, entry),
         KibbleOverdueMedicationSensor(coordinator, entry),
         KibbleReminderSensor(coordinator, entry),
+        KibbleFetchErrorSensor(coordinator, entry),
     ]
     known_keys: set[str] = set()
     entities.extend(_new_event_sensors(coordinator, entry, pet_id, state, known_keys))
@@ -280,6 +282,30 @@ class KibbleReminderSensor(KibbleCoordinatorSensor):
     @property
     def extra_state_attributes(self) -> dict[str, Any]:
         return {"items": self.coordinator.data.get("reminders", [])}
+
+
+class KibbleFetchErrorSensor(KibbleCoordinatorSensor):
+    """Consecutive polling failures and details about the latest fetch error."""
+
+    _attr_translation_key = "fetch_errors"
+    _attr_icon = "mdi:cloud-alert-outline"
+    _attr_entity_category = EntityCategory.DIAGNOSTIC
+
+    def __init__(self, coordinator: KibbleCoordinator, entry: ConfigEntry) -> None:
+        super().__init__(coordinator, entry)
+        self._attr_unique_id = f"{entry.unique_id}_fetch_errors"
+
+    @property
+    def native_value(self) -> int:
+        return self.coordinator.consecutive_errors
+
+    @property
+    def extra_state_attributes(self) -> dict[str, Any]:
+        return {
+            "last_error": self.coordinator.last_error,
+            "last_error_at": self.coordinator.last_error_at,
+            "last_success_at": self.coordinator.last_success_at,
+        }
 
 
 class KibbleEventTypeSensor(KibbleCoordinatorSensor):

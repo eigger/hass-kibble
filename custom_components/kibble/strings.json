@@ -32,6 +32,7 @@
       "weight": { "name": "Latest weight ({unit})" },
       "overdue_medication": { "name": "Overdue medication doses" },
       "reminders": { "name": "Reminders" },
+      "fetch_errors": { "name": "Consecutive fetch errors" },
       "event_type_care": { "name": "Care" },
       "event_type_meal": { "name": "Meal" },
       "event_type_medication": { "name": "Medication" },
