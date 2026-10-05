@@ -27,7 +27,26 @@
     "sensor": {
       "daily_summary": { "name": "Today's events" },
       "overdue_medication": { "name": "Overdue medication doses" },
-      "reminders": { "name": "Reminders" }
+      "reminders": { "name": "Reminders" },
+      "event_type_care": { "name": "Care" },
+      "event_type_meal": { "name": "Meal" },
+      "event_type_medication": { "name": "Medication" },
+      "event_type_note": { "name": "Note" },
+      "event_type_observation": { "name": "Observation" },
+      "event_type_pee": { "name": "Urination" },
+      "event_type_play": { "name": "Play" },
+      "event_type_poop": { "name": "Bowel movement" },
+      "event_type_remedy": { "name": "Remedy" },
+      "event_type_supplement": { "name": "Supplement" },
+      "event_type_symptom": { "name": "Symptom" },
+      "event_type_temperature": { "name": "Temperature" },
+      "event_type_treat": { "name": "Treat" },
+      "event_type_vaccination": { "name": "Vaccination" },
+      "event_type_vet_visit": { "name": "Vet visit" },
+      "event_type_vomit": { "name": "Vomiting" },
+      "event_type_walk": { "name": "Walk" },
+      "event_type_water": { "name": "Water" },
+      "event_type_weight": { "name": "Weight" }
     },
     "button": { "refresh": { "name": "Refresh now" } }
   }

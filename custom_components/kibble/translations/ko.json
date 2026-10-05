@@ -24,7 +24,26 @@
     "sensor": {
       "daily_summary": { "name": "오늘 기록 수" },
       "overdue_medication": { "name": "복약 지연 횟수" },
-      "reminders": { "name": "리마인더" }
+      "reminders": { "name": "리마인더" },
+      "event_type_care": { "name": "케어" },
+      "event_type_meal": { "name": "급여" },
+      "event_type_medication": { "name": "복약" },
+      "event_type_note": { "name": "메모" },
+      "event_type_observation": { "name": "관찰" },
+      "event_type_pee": { "name": "소변" },
+      "event_type_play": { "name": "놀이" },
+      "event_type_poop": { "name": "대변" },
+      "event_type_remedy": { "name": "약제" },
+      "event_type_supplement": { "name": "영양제" },
+      "event_type_symptom": { "name": "증상" },
+      "event_type_temperature": { "name": "체온" },
+      "event_type_treat": { "name": "간식" },
+      "event_type_vaccination": { "name": "예방접종" },
+      "event_type_vet_visit": { "name": "병원 방문" },
+      "event_type_vomit": { "name": "구토" },
+      "event_type_walk": { "name": "산책" },
+      "event_type_water": { "name": "물" },
+      "event_type_weight": { "name": "체중" }
     },
     "button": { "refresh": { "name": "지금 새로고침" } }
   }
