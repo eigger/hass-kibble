@@ -24,7 +24,7 @@ Issue a read-only token for a selected pet from **Kibble → More → API explor
 - **Current measurement sensors**: Weight shows the latest recorded value; overdue medication and active reminders show their current counts.
 - **Overdue medication doses**: Number of medication slots past their scheduled time, with course details.
 - **Reminders**: Number of active reminders, with the list as an attribute.
-- **Consecutive fetch errors**: Number of consecutive failed requests. The `last_error`, `last_error_at` and `last_success_at` attributes show the latest error and successful fetch times.
+- **Consecutive fetch errors**: A graphable count of consecutive failed requests. The `last_error`, `last_error_at` and `last_success_at` attributes show the latest error and successful fetch times.
 - **Refresh now** button: Request an update immediately instead of waiting for the next poll.
 
 Per-event sensors are created from each type's latest event and remain available after a restart at midnight. Care details are available on the Today's events sensor as `medication`, `reminders` and `today_events` attributes. These larger detail attributes are excluded from recorder history to keep the live state within Home Assistant's storage limits; numeric sensors are still recorded normally. Older server responses fall back to the compact `today` totals when possible.

@@ -7,6 +7,8 @@ from custom_components.kibble.sensor import (
     KibbleEventTypeSensor,
     KibbleFetchErrorSensor,
     KibbleMeasurementSensor,
+    KibbleOverdueMedicationSensor,
+    KibbleReminderSensor,
     _new_event_sensors,
 )
 
@@ -118,6 +120,21 @@ def test_latest_weight_uses_measurement_state_class_without_daily_reset():
     assert weight.last_reset is None
 
 
+def test_current_count_sensors_use_measurement_state_class():
+    state = {
+        "pet": {"id": "pet-1", "name": "Bori", "species": "DOG"},
+        "medication": {"overdueDoses": []},
+        "reminders": [],
+    }
+    coordinator, entry = _runtime(state)
+
+    overdue = KibbleOverdueMedicationSensor(coordinator, entry)
+    reminders = KibbleReminderSensor(coordinator, entry)
+
+    assert overdue._attr_state_class == "measurement"
+    assert reminders._attr_state_class == "measurement"
+
+
 def test_fetch_error_sensor_exposes_count_and_latest_error_details():
     coordinator = SimpleNamespace(
         data={"pet": {"id": "pet-1", "name": "Bori"}},
@@ -131,6 +148,7 @@ def test_fetch_error_sensor_exposes_count_and_latest_error_details():
     sensor = KibbleFetchErrorSensor(coordinator, entry)
 
     assert sensor.native_value == 2
+    assert sensor._attr_state_class == "measurement"
     assert sensor.extra_state_attributes == {
         "last_error": "TimeoutError",
         "last_error_at": "2026-10-05T13:00:00+00:00",
