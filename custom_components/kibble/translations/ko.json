@@ -1,0 +1,31 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Kibble 연결",
+        "description": "Kibble 서버 주소와 state:read 권한이 있는 읽기 전용 API 토큰을 입력하세요.",
+        "data": { "url": "서버 주소", "api_token": "API 토큰" }
+      },
+      "reauth_confirm": {
+        "title": "Kibble 다시 인증",
+        "description": "이 반려동물용 새 읽기 전용 API 토큰을 입력하세요.",
+        "data": { "api_token": "API 토큰" }
+      }
+    },
+    "error": {
+      "invalid_auth": "토큰이 유효하지 않거나 state:read 권한이 없습니다.",
+      "cannot_connect": "Kibble에 연결할 수 없거나 응답이 올바르지 않습니다.",
+      "wrong_pet": "이 토큰은 다른 반려동물에 연결되어 있습니다.",
+      "unknown": "예기치 않은 오류입니다. 통합 로그를 확인하세요."
+    },
+    "abort": { "already_configured": "이 반려동물은 이미 설정되어 있습니다." }
+  },
+  "entity": {
+    "sensor": {
+      "daily_summary": { "name": "오늘 기록 수" },
+      "overdue_medication": { "name": "복약 지연 횟수" },
+      "reminders": { "name": "리마인더" }
+    },
+    "button": { "refresh": { "name": "지금 새로고침" } }
+  }
+}
