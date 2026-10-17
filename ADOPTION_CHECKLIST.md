@@ -63,8 +63,8 @@ hass-kibble 최초 채택 파일럿의 실제 확인 기록입니다. [사용법
 | 규칙 ID | 확인 항목 | 상태 | 근거 / 남은 작업 |
 |---|---|---|---|
 | HACS-01, HACS-02 | 루트 README/LICENSE/hacs.json, 검증한 최소 HA, 실제 배포 구조와 필요한 옵션 일치 | PASS | README/LICENSE/hacs.json 및 custom_components/kibble 배포 구조 유지; 정확최소 검증 |
-| HACS-03, HACS-05 | Default 여부는 목록 근거로 확인, HACS/Hassfest 실제 실행, ignore는 이유·해제 조건 기록 | TODO | Custom 배지·validate.yml 공유HACS/Hassfest 적용; 원격 실행 결과 대기, ignore 없음 |
-| HACS-06 (권장) | description·topics·issue 경로·brands 및 사용하는 HACS 필드 지원 확인 | TODO | 기존 render_readme 유지; 최신 HACS 실제 검증 결과와 metadata/brands 검토 대기 |
+| HACS-03, HACS-05 | Default 여부는 목록 근거로 확인, HACS/Hassfest 실제 실행, ignore는 이유·해제 조건 기록 | TODO | Custom 배지·공유 HACS/Hassfest 적용. 최초 원격 Hassfest PASS; HACS 8/9 PASS·brands 실패를 기존 MIT Kibble icon.png 제공으로 보완, 새 커밋 Validate 재실행 대기. ignore 없음 |
+| HACS-06 (권장) | description·topics·issue 경로·brands 및 사용하는 HACS 필드 지원 확인 | TODO | 기존 render_readme와 description/topics/issues 모두 실제 HACS PASS; 로컬 MIT 브랜드 자산 제공 후 독립 검토·원격 재실행 대기 |
 | CI-01, CI-02 | Validate/Python Tests 공통화, 확장 job 유지, PR·실제 기본 브랜치 push·dispatch 및 필요한 schedule | PASS | 공통 Python Tests 두 HA job·Validate 호출; PR/master push/dispatch/주간schedule |
 | CI-03, CI-05, CI-08 | 최소 권한·checkout 자격증명 비보존·timeout·concurrency, full SHA·갱신 관리, 비신뢰 입력·secrets 경계 | PASS | caller contents:read, workflow+ref concurrency, fullSHA, 중앙 timeout/credential비보존, Dependabot Actions갱신 |
 | CI-04, CI-07, CI-12 | 실패를 숨기지 않는 실제 `ha` 필수 테스트, 버전별 환경·cache·Ruff 설정과 required checks 이름 확인 | TODO | 실제 ha 두 환경 tests/components/kibble 경로; 로컬 PASS, 원격 CI 대기; master protection/rulesets 없음 |
@@ -103,3 +103,7 @@ hass-kibble 최초 채택 파일럿의 실제 확인 기록입니다. [사용법
 ## 독립 리뷰·검증 기록
 
 2026-10-17 `/root/review_kibble_pilot`이 구현과 분리한 pip 환경에서 중앙 installer를 통해 현재·최소 HA를 각각 설치하고 30개 테스트와 pip check 성공을 확인했습니다. 최소 환경은 `constraints/homeassistant-min.txt`를 포함해 재검증했습니다. 변경 코드·65개 규칙·체크리스트·실제 명령과 결과를 검토했고 미해결 필수 지적이 없었습니다. 최종 반영 커밋과 원격 Tests/Validate 결과는 별도 아래 기록으로 확정합니다.
+
+## 최초 원격 검증과 보완
+
+통합 커밋 `29e07c469a9c14e42f645cf24ccf0f1ace25c202`의 [Tests 39032907613](https://github.com/eigger/hass-kibble/actions/runs/39032907613)은 현재·최소 HA 각각 30 passed와 pip check, Ruff·format을 통과했습니다. [Validate 39032907660](https://github.com/eigger/hass-kibble/actions/runs/39032907660)은 Hassfest 성공, HACS 8/9 검사 성공, brands 검사 실패였습니다. 로컬 브랜드 아이콘 미제공 및 HA brands 미등록이 원인입니다. 기존 Kibble MIT 자산을 원본 그대로 제공했으며 변경 커밋의 Validate 재실행으로 해결 여부를 확정합니다.

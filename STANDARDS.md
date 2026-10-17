@@ -29,3 +29,7 @@
 | GOV-03 | 사용자가 기존 대화에서 직접 push를 승인한 파일럿으로 채택 PR 대신 master 커밋·독립 리뷰·CI 증거를 기록 | eigger / /root | 이후 일반 채택 시 PR 경로 재검토 |
 
 master branch protection 조회는 404(Branch not protected), rulesets는 빈 배열이므로 기존 required checks를 대기 상태로 만드는 설정 변경은 없습니다. 보안 설정은 변경하지 않습니다. 채택 작업으로 태그·Release를 만들지 않습니다.
+
+## HACS brand asset
+
+최초 Validate 실행에서 로컬 브랜드 자산과 HA brands 등록이 모두 없어 brands 검사만 실패했습니다. 기존 Kibble 프로젝트의 MIT 아이콘을 원본 그대로 `custom_components/kibble/brand/icon.png`에 제공했습니다. 출처·커밋·라이선스는 같은 폴더 README에 기록했으며 검사를 ignore하지 않습니다. 이는 HACS Default 또는 공식 HA brands 등록을 의미하지 않습니다.
