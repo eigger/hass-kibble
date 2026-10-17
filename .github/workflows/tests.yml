@@ -13,13 +13,24 @@ concurrency:
   cancel-in-progress: true
 jobs:
   current:
-    uses: eigger/hass-repo-standards/.github/workflows/python-tests.yml@a6deb61613407c099b28cbbe826ba89be1464e7d # reviewed standards commit
+    uses: eigger/hass-repo-standards/.github/workflows/python-tests.yml@103124f47c6fc838a39eddbd008e64cfb1a5e5f0 # reviewed standards commit
     with:
       domain: kibble
       python-versions: '["3.14"]'
       lint-python-version: '3.14'
       requirements: requirements_test.txt
       expected-ha-version: '2026.10.2'
+      test-profile: ha
+      ha-components: 'button sensor'
+      pytest-args: tests/components/kibble/ -v
+  minimum-ha:
+    uses: eigger/hass-repo-standards/.github/workflows/python-tests.yml@103124f47c6fc838a39eddbd008e64cfb1a5e5f0 # reviewed standards commit
+    with:
+      domain: kibble
+      python-versions: '["3.13"]'
+      lint-python-version: '3.14'
+      requirements: requirements_test_min.txt
+      expected-ha-version: '2025.3.0'
       test-profile: ha
       ha-components: 'button sensor'
       pytest-args: tests/components/kibble/ -v

@@ -3,7 +3,7 @@
 <!-- hass-standards:badges:start -->
 [![HACS Custom](https://img.shields.io/badge/HACS-Custom-41BDF5?style=flat-square)](#설치)
 [![Release](https://img.shields.io/github/v/release/eigger/hass-kibble?style=flat-square)](https://github.com/eigger/hass-kibble/releases)
-[![Home Assistant minimum](https://img.shields.io/badge/HA-%E2%89%A5%202026.10.2-41BDF5?style=flat-square)](hacs.json)
+[![Home Assistant minimum](https://img.shields.io/badge/HA-%E2%89%A5%202025.3.0-41BDF5?style=flat-square)](hacs.json)
 [![Tests](https://img.shields.io/github/actions/workflow/status/eigger/hass-kibble/tests.yml?branch=master&style=flat-square&label=Tests)](https://github.com/eigger/hass-kibble/actions/workflows/tests.yml)
 [![Validate](https://img.shields.io/github/actions/workflow/status/eigger/hass-kibble/validate.yml?branch=master&style=flat-square&label=Validate)](https://github.com/eigger/hass-kibble/actions/workflows/validate.yml)
 [![License](https://img.shields.io/github/license/eigger/hass-kibble?style=flat-square)](LICENSE)
@@ -15,16 +15,12 @@ Kibble을 Home Assistant에 **읽기 전용**으로 연결하는 커스텀 통�
 
 ## 요구사항
 
-- Home Assistant **2026.10.2 이상**, 네트워크로 접근 가능한 Kibble 서버와 반려동물별 `state:read` 토큰.
+- Home Assistant **2025.3.0 이상**, 네트워크로 접근 가능한 Kibble 서버와 반려동물별 `state:read` 토큰.
 - 로컬 HTTP/HTTPS 조회 전용이며 Bluetooth 기기나 프록시는 사용하지 않습니다.
-
-## 지원 버전 변경
-
-이번 변경부터 최소 지원 HA를 2025.3.0에서 **2026.10.2**로 올렸습니다. 이전 HA 사용자는 이 변경이 포함된 버전을 설치하기 전에 HA를 먼저 업데이트해야 합니다. 기존 통합 설정·반려동물 식별자·엔티티 ID는 바뀌지 않으므로 통합을 다시 등록할 필요는 없습니다.
 
 ## 설치
 
-1. Home Assistant 2026.10.2 이상에서 HACS의 사용자 지정 저장소에 `eigger/hass-kibble`을 **Integration**으로 추가합니다.
+1. Home Assistant 2025.3.0 이상에서 HACS의 사용자 지정 저장소에 `eigger/hass-kibble`을 **Integration**으로 추가합니다.
 2. 통합을 설치하고 Home Assistant를 재시작합니다.
 3. **설정 → 기기 및 서비스 → 통합 추가 → Kibble**을 선택합니다.
 4. Kibble 서버 주소와 해당 반려동물에 고정된 `state:read` API 토큰을 입력합니다.
@@ -64,7 +60,7 @@ target:
 
 ## 개발
 
-최소 지원 버전과 테스트 기준은 Home Assistant 2026.10.2입니다. 개발 환경은 Python 3.14.2 이상과 호환 플러그인 0.13.373을 사용합니다.
+최신 테스트 환경은 HA 2026.10.2·플러그인 0.13.373·Python 3.14.2 이상입니다. 지원 최소 버전은 HA 2025.3.0으로 유지하며, 별도 Python 3.13 환경에서 그 버전에 호환되는 플러그인 0.13.221로 검증합니다.
 
 ```sh
 python3.14 -m venv .venv
@@ -75,7 +71,7 @@ python3.14 -m venv .venv
 .venv/bin/python -m pytest tests/components/kibble/ -v
 ```
 
-최소 지원 버전이 현재 테스트 버전과 같으므로 한 환경에서 정확한 최소 버전을 함께 검증합니다. 테스트는 `hacs.json`의 최소 HA, 테스트 requirements의 정확한 HA 버전과 실제 설치 버전이 같은지 확인합니다. 테스트 의존성은 런타임 manifest와 분리하며 호환 HA·플러그인 버전을 함께 검토합니다. 자세한 환경·검증 범위는 [적용 기준](STANDARDS.md)과 [체크리스트](ADOPTION_CHECKLIST.md)를 참고하세요.
+최소 HA 검증은 별도 가상환경에서 `requirements_test_min.txt`를 설치해 같은 pytest 명령을 실행합니다. 테스트는 현재·최소 환경별 정확한 HA/플러그인 설치값을 확인하고 최소 환경이 `hacs.json`의 지원 하한과 일치하는지 검사합니다. 최신 테스트 환경을 갱신하는 것만으로 컴포넌트 지원 하한을 올리지 않습니다. 테스트 의존성은 런타임 manifest와 분리하며 호환 HA·플러그인 버전을 함께 검토합니다. 자세한 환경·검증 범위는 [적용 기준](STANDARDS.md)과 [체크리스트](ADOPTION_CHECKLIST.md)를 참고하세요.
 
 ## 지원과 라이선스
 

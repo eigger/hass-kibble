@@ -6,6 +6,10 @@ updates:
       interval: weekly
   - package-ecosystem: pip
     directory: /
+    # Historical minimum fixtures are version contracts, not upgrade targets.
+    exclude-paths:
+      - requirements_test_min.txt
+      - constraints/**
     schedule:
       interval: weekly
     groups:
