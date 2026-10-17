@@ -4,13 +4,12 @@
   "domain": "kibble",
   "hacs": "custom",
   "release": true,
-  "analytics": false,
   "readmes": [
     "README.md",
-    "README.en.md"
+    "README.ko.md"
   ],
   "installation_links": {
-    "README.md": "#설치",
-    "README.en.md": "#installation"
+    "README.md": "#installation",
+    "README.ko.md": "#설치"
   }
 }

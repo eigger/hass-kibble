@@ -1,6 +1,6 @@
 # 공통 규칙 적용 체크리스트
 
-hass-kibble 최초 채택 파일럿의 실제 확인 기록입니다. [사용법과 판정 기준](https://github.com/eigger/hass-repo-standards/blob/103124f47c6fc838a39eddbd008e64cfb1a5e5f0/docs/checklist.md)을 읽고, 아래 규칙은 `STANDARDS.md`에 기록한 표준 커밋에서 확인합니다. 태그·릴리스 대신 검토한 표준 커밋 SHA를 기준으로 합니다.
+hass-kibble 최초 채택 파일럿의 실제 확인 기록입니다. [사용법과 판정 기준](https://github.com/eigger/hass-repo-standards/blob/7528a90b483a6740c0b1bdd9176f3e33355eb385/docs/checklist.md)을 읽고, 아래 규칙은 `STANDARDS.md`에 기록한 표준 커밋에서 확인합니다. 태그·릴리스 대신 검토한 표준 커밋 SHA를 기준으로 합니다.
 
 ## 검토 대상
 
@@ -9,7 +9,7 @@ hass-kibble 최초 채택 파일럿의 실제 확인 기록입니다. [사용법
 | 통합 리포 / 실제 기본 브랜치 | eigger/hass-kibble / master |
 | domain / 구현 경로 | kibble / custom_components/kibble/ |
 | 검토 대상 통합 커밋 / 채택 PR | f1a70396bea833b25e8fbcac7fa837ac3769ec91 — 지원 최소 복원 완료; [PR #8](https://github.com/eigger/hass-kibble/pull/8)의 e01 이력과 구분, 문서 마감은 후속 별도 커밋 |
-| 검토한 표준 전체 커밋 SHA | 103124f47c6fc838a39eddbd008e64cfb1a5e5f0 |
+| 검토한 표준 전체 커밋 SHA | 7528a90b483a6740c0b1bdd9176f3e33355eb385 |
 | 검토일 / 조율 담당 | 2026-10-17 / root |
 | 구현 서브 에이전트 / 독립 리뷰·검증 서브 에이전트 | implement_kibble_pilot / review_kibble_pilot |
 | 중앙 현황표 반영일 / 기록 | 2026-10-17 — 중앙 4726ab1d5c93ff1af0e9aaead2bb1631d80e1f28에 실제 구현·검증 종료 보고 등록; 표 상태 완료 전환은 문서 마감 후 별도 반영 |
@@ -23,7 +23,7 @@ hass-kibble 최초 채택 파일럿의 실제 확인 기록입니다. [사용법
 
 | 규칙 ID | 확인 항목 | 상태 | 근거 / 남은 작업 |
 |---|---|---|---|
-| GOV-01, GOV-02 | `STANDARDS.md`에 표준 SHA·profile·실제 기본 브랜치·예외 기록, workflow/action은 검토 SHA로 고정 | PASS | STANDARDS.md와 workflow를 중앙 파일럿 보완 커밋 103124f47c6fc838a39eddbd008e64cfb1a5e5f0으로 고정 |
+| GOV-01, GOV-02 | `STANDARDS.md`에 표준 SHA·profile·실제 기본 브랜치·예외 기록, workflow/action은 검토 SHA로 고정 | PASS | STANDARDS.md와 세 공통 workflow 호출을 README·Usage·지원 경로 보완 기준 7528a90b483a6740c0b1bdd9176f3e33355eb385으로 고정; 과거 검증 당시 기준은 아래 이력에 별도 보존 |
 | GOV-03 | 새 표준 채택 변경의 영향·이관 방법과 명시적 채택 PR 확인. 규칙 자체를 변경하면 공통 CHANGELOG 기록 | PASS | 최종 채택 PR #8 독립 검증·CI 후 squash merge e01ac2119c4ce571ffe82ab2b189173fc6c78b88; 초기 직접 반영 예외는 STANDARDS에 이력 보존 후 해제 |
 | GOV-04 | 중앙 표에 작업 시작·단계 변경·종료 상태, 담당·적용 내용·검증/리뷰 근거·남은 작업 갱신, 타 리포 기록 보존 | PASS | 중앙 4726ab1d5c93ff1af0e9aaead2bb1631d80e1f28에 실제 f1a 구현·검증 종료 결과 등록 완료. 표 상태 전환만 문서 마감 후 별도 반영 |
 | GOV-05 | 구현과 독립 리뷰·검증을 별도 서브 에이전트에게 위임, 지적 수정·재검증 및 결과 취합 | PASS | 구현 implement_kibble_pilot / 독립 review_kibble_pilot 분리; 초기 파일럿 독립 양환경 30 passed·pip check·정책 검토 완료; PR #8 당시 지원 변경 검증과 분리해 현재 지원 하한 복원 작업의 최신·최소 환경 각각 독립 31 passed·pip check·Ruff·format 통과 |
@@ -75,8 +75,8 @@ hass-kibble 최초 채택 파일럿의 실제 확인 기록입니다. [사용법
 
 | 규칙 ID | 확인 항목 | 상태 | 근거 / 남은 작업 |
 |---|---|---|---|
-| DOC-01, DOC-02, DOC-06 | README 구성·기존 언어·번역 연결, 요구사항/설정 예시·개발/실HA 테스트/의존성 안내와 검증 범위 | PASS | 한국어 main/영어 번역 보존·전환링크; 요구/설치/엔티티/사용/제한/개발/지원 문서 |
-| DOC-03, DOC-04, DOC-05 | 제목 아래 관리 블록, flat-square·순서·실제 조건별 배지, CI 실제 기본 브랜치, opt-in Usage 의미·이전 안내 보존 | PASS | .hass-standards.json 두 README 관리블록; HACS/실제0.1.5Release/최소HA/Tests/Validate/License 순서·master·flat-square; Usage 비활성 |
+| DOC-01, DOC-02, DOC-06 | README 구성·기존 언어·번역 연결, 요구사항/설정 예시·개발/실HA 테스트/의존성 안내와 검증 범위 | PASS | 영문 README.md 기본/한국어 README.ko.md 전체 내용 보존·상호 전환 링크; 기존 README.en.md는 영문 기본 문서로 안내; 요구/설치/엔티티/사용/제한/개발/지원 문서 |
+| DOC-03, DOC-04, DOC-05 | 제목 아래 관리 블록, flat-square·순서·실제 조건별 배지, CI 실제 기본 브랜치, opt-in Usage 의미·이전 안내 보존 | PASS | .hass-standards.json 두 README 관리블록; HACS/실제0.1.5Release/최소HA/Tests/Validate/License/Usage 순서·master·flat-square; manifest domain kibble의 공식 custom_integrations.json 동적 Usage를 미집계·조회 실패 여부와 무관하게 유지, Analytics 참여 설치 의미 설명 |
 | HA-09, HA-10 | BLE 사용 시 HA Bluetooth API·라이브러리 공개 경계, 지원한 proxy 경로·재연결·취소·서비스 변경 검증 | N/A | HTTP local_polling 통합; Bluetooth/imagespec/blesession 없음 |
 | DOC-07 | blesession/proxy 통합 README에서 공통 Bluetooth 설정·추천 기기/리비전·active 연결/스캔 차이·문제 해결 안내로 연결 | N/A | Bluetooth proxy 사용 없음 |
 | DOC-07, HA-12 | 기기별 깨우기·인증·타 앱 연결·전송 제약, 실제 검증 경로와 미검증 범위, 공개 문제 로그 비식별화 | PASS | Bluetooth 기기조건 N/A; README 문제보고 토큰/개인URL/반려동물정보 제거 및 실서버 미검증 명시 |
@@ -100,7 +100,7 @@ hass-kibble 최초 채택 파일럿의 실제 확인 기록입니다. [사용법
 
 현재 적용 대상 필수 TODO와 EXCEPTION은 없습니다. 기능이 없는 N/A와 실물·UI 수동 검증 한계는 필수 자동 테스트 성공과 구분했습니다. CI 성공만으로 실물 기기 검증을 주장하지 않습니다.
 
-중앙 보고는 [종료 보고 등록 커밋](https://github.com/eigger/hass-repo-standards/blob/4726ab1d5c93ff1af0e9aaead2bb1631d80e1f28/docs/adoption-status.md)에 반영했습니다. 기준 규칙 SHA는 `103124f47c6fc838a39eddbd008e64cfb1a5e5f0`로 유지하며 현황 기록 커밋과 혼동하지 않습니다.
+중앙 보고는 [종료 보고 등록 커밋](https://github.com/eigger/hass-repo-standards/blob/4726ab1d5c93ff1af0e9aaead2bb1631d80e1f28/docs/adoption-status.md)에 반영했습니다. 당시 기준 규칙 SHA는 `103124f47c6fc838a39eddbd008e64cfb1a5e5f0`이며 현황 기록 커밋과 혼동하지 않습니다. 현재 기준은 검토 대상 표의 후속 채택 SHA를 따릅니다.
 
 ## 초기 파일럿 독립 리뷰·검증 기록 (이전 지원 정책)
 
@@ -137,3 +137,19 @@ PR #9~12는 삭제한 과거 최소 환경만 변경하는 제안이므로 root�
 실제 최종 구현 커밋은 `f1a70396bea833b25e8fbcac7fa837ac3769ec91`입니다. [Tests 39034355878](https://github.com/eigger/hass-kibble/actions/runs/39034355878)에서 최소 환경 Python3.13.16/HA2025.3.0/플러그인0.13.221은 31 passed(1.47초), 현재 환경 Python3.14.8/HA2026.10.2/플러그인0.13.373은 31 passed(1.29초)로 성공했습니다. 양쪽 pip check와 Ruff·format도 통과했습니다. [Validate 39034355875](https://github.com/eigger/hass-kibble/actions/runs/39034355875)는 HACS 9/9와 Hassfest를 통과했습니다. 독립 리뷰 담당이 실제 커밋·run·로그를 확인했습니다.
 
 중앙 `4726ab1d5c93ff1af0e9aaead2bb1631d80e1f28`은 이 구현과 검증의 종료 보고를 실제 등록한 커밋입니다. 이 문서 마감은 검증 대상 구현과 구분한 후속 문서 변경이며 자기 커밋을 사전에 검증했다고 기록하지 않습니다. 중앙 표 상태 완료 전환과 문서 마감 커밋 연결만 후속으로 처리합니다.
+
+## README 언어·Usage 배지 후속 정정 (2026-10-17)
+
+사용자 요청에 따라 영문 전체 문서를 `README.md`, 한국어 전체 문서를 `README.ko.md`로 배치하고 상호 전환 링크와 각 설치 절 앵커를 맞췄습니다. 기존 `README.en.md` URL에는 기본 영문 문서로 이동하는 안내를 보존합니다. 두 언어판의 관리 배지에는 manifest domain `kibble`의 공식 Analytics 동적 Usage 배지를 항상 포함합니다. 조회 403·미집계 여부를 사전 조건으로 삼지 않으며 설치 수를 0으로 추정하지 않습니다. 이 배지는 전체 설치가 아닌 Analytics 참여 설치의 집계입니다.
+
+구현: `/root/kibble_readme_usage_fix`; 독립 리뷰·검증은 별도 담당자가 변경 후 기록합니다. 이번 변경은 문서·배지 설정과 동일 동작 공통 workflow의 기준 SHA 고정 갱신을 포함하며 기존 지원 최소 HA2025.3.0·최신 테스트 HA2026.10.2 및 각 플러그인 조합·테스트·코드·CI 실행 동작을 변경하지 않습니다. 이전 구현의 테스트 결과는 위 대상 커밋의 이력으로 유지하며 이 문서 변경 자체의 검증과 구분합니다.
+
+지원 경로도 두 언어판에 동일하게 명시합니다. 버그는 실제 활성화된 [Issues](https://github.com/eigger/hass-kibble/issues), 질문·사용법·아이디어는 실제 활성화된 [Discussions](https://github.com/eigger/hass-kibble/discussions)로 안내하며 [MIT 라이선스 원문](LICENSE) 링크를 유지합니다. 조율 담당자가 GitHub 리포의 `hasIssuesEnabled=true`·`hasDiscussionsEnabled=true`를 확인한 결과에 따라 공개 경로를 연결했습니다.
+
+후속 기준은 `7528a90b483a6740c0b1bdd9176f3e33355eb385`입니다. 기존 `103124f47c6fc838a39eddbd008e64cfb1a5e5f0` 대비 호출한 `python-tests.yml`·`validate-integration.yml` 내용이 동일함을 확인하고 세 caller의 SHA만 함께 갱신했습니다. `/root/review_usage_language_fix`가 독립 검토한 본문 보존·언어/설치 앵커·상대 링크·정확한 Usage 쿼리·생성기 `--check`·`git diff --check` 및 Issues/Discussions/라이선스 안내는 PASS입니다. 기준 고정 변경도 추가 독립 검증 대상이며, 새 최종 통합 커밋과 원격 CI 결과는 아직 대기 중입니다. 이전 HA 테스트 PASS를 이 새 커밋의 CI 성공으로 표시하지 않습니다.
+
+## 메인 README 간소화와 상세 문서 분리 (2026-10-17)
+
+BLE ESL의 메인 안내→세부 사용/문제 해결·개발 문서 연결 방식을 참고해 양쪽 README에는 핵심 기능·지원 하한·빠른 설치·대표 예시·읽기 전용/오류 주의·문서 표·지원/라이선스만 남겼습니다. 기존 상세 설치·토큰·제거·엔티티 속성·recorder·오류 대응·Usage 의미는 `docs/user-guide.md`와 `docs/ko/user-guide.md`, 개발 버전 조합·명령·최소/최신 정책은 `docs/development.md`와 `docs/ko/development.md`에 보존했습니다. 각 문서에서 README와 번역을 상호 연결합니다. HTTP 통합 특성대로 Bluetooth 설정은 추가하지 않았으며 실행 코드·지원 하한·테스트 버전은 변경하지 않았습니다. 기존 상세절 전체 보존 자동 비교, README/추가 문서의 상대 경로·설치 앵커와 번역 연결, 배지 생성기 `--check`, `git diff --check`를 구현 담당자가 확인했습니다. 독립 검토 결과는 아래 후속 기록과 구분하며 새 최종 커밋 CI는 대기 상태입니다.
+
+최종 기준 `7528a90b483a6740c0b1bdd9176f3e33355eb385`에 맞춰 `STANDARDS.md`·현재 기준 표·세 caller의 전체 SHA를 일치시키고 로컬 AGENTS의 간결한 메인/상세 문서·조건부 Bluetooth 지침을 동기화했습니다. Kibble의 BLE 전용 문제 해결은 N/A이며 HTTP 사용 안내만 보존합니다. 문서/배지/지원 경로에 대한 `/root/review_usage_language_fix`의 독립 검토 PASS 근거는 위와 같고, 문서 분리는 `/root/review_usage_language_fix`가 이전 HEAD의 영한 상세절을 섹션별 비교해 사용/개발 문서의 정확한 내용 보존, 모든 README/docs 상대 파일·heading fragment, 배지 생성기 `--check`·`git diff --check`를 독립 재확인해 PASS입니다. 최종 R 핀·동기화 변경은 추가 독립 검토를 요청했습니다. 새 최종 통합 커밋 및 원격 Tests/Validate 결과는 아직 대기 상태입니다.

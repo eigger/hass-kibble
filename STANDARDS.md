@@ -1,7 +1,7 @@
 # 적용한 공통 규칙
 
-- 표준: https://github.com/eigger/hass-repo-standards/tree/103124f47c6fc838a39eddbd008e64cfb1a5e5f0
-- 참조 커밋 SHA: `103124f47c6fc838a39eddbd008e64cfb1a5e5f0`
+- 표준: https://github.com/eigger/hass-repo-standards/tree/7528a90b483a6740c0b1bdd9176f3e33355eb385
+- 참조 커밋 SHA: `7528a90b483a6740c0b1bdd9176f3e33355eb385`
 - 채택일: 2026-10-17
 - profile: integration / ha
 - 기본 브랜치: master; domain: kibble
@@ -50,3 +50,9 @@ PR #8에서 최신 테스트 갱신을 지원 하한 변경과 혼동해 HA 최�
 ## 최종 적용 판정
 
 적용 대상 필수 항목은 PASS 또는 이유가 있는 N/A이며 현재 예외는 없습니다. 실제 구현 커밋 `f1a70396bea833b25e8fbcac7fa837ac3769ec91`의 [Tests](https://github.com/eigger/hass-kibble/actions/runs/39034355878)는 최소·현재 실제 HA 환경 각각 31 passed·pip check·Ruff·format을 통과했고, [Validate](https://github.com/eigger/hass-kibble/actions/runs/39034355875)는 HACS 9/9·Hassfest를 통과했습니다. 독립 담당자가 확인한 종료 결과는 중앙 `4726ab1d5c93ff1af0e9aaead2bb1631d80e1f28`에 등록했습니다. 중앙 표의 상태 완료 전환은 문서 마감 이후 별도 행정 후속입니다. 실물·운영 서버와 HA frontend UI 미검증 한계는 그대로 유지합니다.
+
+## README 언어·Usage 배지 정책 후속 반영 (2026-10-17)
+
+영문은 [README.md](README.md)를 기본으로 제공하고 한국어 전체 문서는 [README.ko.md](README.ko.md)에 유지합니다. 종전 영문 경로 [README.en.md](README.en.md)는 기본 문서로 안내합니다. 두 언어의 상호 링크·설치 앵커·관리 배지 설정을 함께 유지하며, manifest domain `kibble`의 Usage 동적 배지는 사전 집계 확인이나 조회 성공을 조건으로 하지 않습니다. Analytics 참여 설치 집계라는 의미를 문서에 명시하고 미집계·조회 불가를 0으로 표현하지 않습니다. 지원 하한·테스트 환경·런타임·CI 실행 동작은 유지합니다. 새 기준 `7528a90b483a6740c0b1bdd9176f3e33355eb385`으로 세 caller의 SHA를 함께 갱신했으며, 이전 기준과 호출 workflow 내용이 동일한 문서·기준 고정 후속 작업입니다. 새 최종 커밋의 원격 CI 결과는 대기 중이며 위 구현 검증 이력과 구분합니다.
+
+메인 README는 빠른 시작 중심으로 정리하고 상세 사용·오류 대응과 개발·테스트 안내는 영문 `docs/user-guide.md`·`docs/development.md`, 한국어 `docs/ko/`에 보존해 문서 표에서 연결합니다. 기존 언어별 설치·토큰·엔티티 속성·기록 보관·테스트 조합 안내를 삭제하지 않는 문서 분리입니다.
