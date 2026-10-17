@@ -106,4 +106,4 @@ hass-kibble 최초 채택 파일럿의 실제 확인 기록입니다. [사용법
 
 ## 최초 원격 검증과 보완
 
-통합 커밋 `29e07c469a9c14e42f645cf24ccf0f1ace25c202`의 [Tests 39032907613](https://github.com/eigger/hass-kibble/actions/runs/39032907613)은 현재·최소 HA 각각 30 passed와 pip check, Ruff·format을 통과했습니다. [Validate 39032907660](https://github.com/eigger/hass-kibble/actions/runs/39032907660)은 Hassfest 성공, HACS 8/9 검사 성공, brands 검사 실패였습니다. 로컬 브랜드 아이콘 미제공 및 HA brands 미등록이 원인입니다. 기존 Kibble MIT 자산을 원본 그대로 제공했으며 변경 커밋의 Validate 재실행으로 해결 여부를 확정합니다.
+통합 커밋 `29e07c469a9c14e42f645cf24ccf0f1ace25c202`의 [Tests 39032907613](https://github.com/eigger/hass-kibble/actions/runs/39032907613)은 현재·최소 HA 각각 30 passed와 pip check, Ruff·format을 통과했습니다. [Validate 39032907660](https://github.com/eigger/hass-kibble/actions/runs/39032907660)은 Hassfest 성공, HACS 8/9 검사 성공, brands 검사 실패였습니다. 로컬 브랜드 아이콘 미제공 및 HA brands 미등록이 원인입니다. 기존 Kibble MIT 512px 자산을 icon@2x.png로 보존하고 HA 규격의 256px icon.png를 재현 가능한 변환으로 제공했으며 변경 커밋의 Validate 재실행으로 해결 여부를 확정합니다.

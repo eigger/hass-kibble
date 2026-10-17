@@ -32,4 +32,4 @@ master branch protection 조회는 404(Branch not protected), rulesets는 빈 �
 
 ## HACS brand asset
 
-최초 Validate 실행에서 로컬 브랜드 자산과 HA brands 등록이 모두 없어 brands 검사만 실패했습니다. 기존 Kibble 프로젝트의 MIT 아이콘을 원본 그대로 `custom_components/kibble/brand/icon.png`에 제공했습니다. 출처·커밋·라이선스는 같은 폴더 README에 기록했으며 검사를 ignore하지 않습니다. 이는 HACS Default 또는 공식 HA brands 등록을 의미하지 않습니다.
+최초 Validate 실행에서 로컬 브랜드 자산과 HA brands 등록이 모두 없어 brands 검사만 실패했습니다. 기존 Kibble 프로젝트의 MIT 512px 아이콘을 `custom_components/kibble/brand/icon@2x.png`에 원본 그대로 보존하고 HA 규격의 256px `icon.png`를 재현 가능한 LANCZOS 변환으로 제공했습니다. 출처·커밋·라이선스는 같은 폴더 README에 기록했으며 검사를 ignore하지 않습니다. 이는 HACS Default 또는 공식 HA brands 등록을 의미하지 않습니다.
