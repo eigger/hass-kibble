@@ -3,7 +3,7 @@
 <!-- hass-standards:badges:start -->
 [![HACS Custom](https://img.shields.io/badge/HACS-Custom-41BDF5?style=flat-square)](#installation)
 [![Release](https://img.shields.io/github/v/release/eigger/hass-kibble?style=flat-square)](https://github.com/eigger/hass-kibble/releases)
-[![Home Assistant minimum](https://img.shields.io/badge/HA-%E2%89%A5%202025.3.0-41BDF5?style=flat-square)](hacs.json)
+[![Home Assistant minimum](https://img.shields.io/badge/HA-%E2%89%A5%202026.10.2-41BDF5?style=flat-square)](hacs.json)
 [![Tests](https://img.shields.io/github/actions/workflow/status/eigger/hass-kibble/tests.yml?branch=master&style=flat-square&label=Tests)](https://github.com/eigger/hass-kibble/actions/workflows/tests.yml)
 [![Validate](https://img.shields.io/github/actions/workflow/status/eigger/hass-kibble/validate.yml?branch=master&style=flat-square&label=Validate)](https://github.com/eigger/hass-kibble/actions/workflows/validate.yml)
 [![License](https://img.shields.io/github/license/eigger/hass-kibble?style=flat-square)](LICENSE)
@@ -15,12 +15,16 @@ A **read-only** custom Home Assistant integration for Kibble. It polls the daily
 
 ## Requirements
 
-- Home Assistant **2025.3.0 or newer**, a reachable Kibble server and a pet-bound `state:read` token.
+- Home Assistant **2026.10.2 or newer**, a reachable Kibble server and a pet-bound `state:read` token.
 - Local HTTP/HTTPS polling; no Bluetooth adapter or proxy is used.
+
+## Support version change
+
+This change raises the minimum HA version from 2025.3.0 to **2026.10.2**. Upgrade HA before installing a version containing this change. Existing integration settings, pet identifiers and entity IDs are unchanged; you do not need to recreate the integration.
 
 ## Installation
 
-1. On Home Assistant 2025.3 or newer, add `eigger/hass-kibble` as a custom **Integration** repository in HACS.
+1. On Home Assistant 2026.10.2 or newer, add `eigger/hass-kibble` as a custom **Integration** repository in HACS.
 2. Install the integration and restart Home Assistant.
 3. Go to **Settings → Devices & services → Add integration → Kibble**.
 4. Enter the Kibble server URL and a `state:read` API token bound to the pet.
@@ -60,7 +64,7 @@ This integration is read-only. Add records and change settings in Kibble. After 
 
 ## Development
 
-Use Python 3.14 for the current environment and Python 3.13 for minimum HA.
+The minimum supported and tested HA version is 2026.10.2. Use Python 3.14.2 or newer with the compatible test plugin 0.13.373.
 
 ```sh
 python3.14 -m venv .venv
@@ -71,7 +75,7 @@ python3.14 -m venv .venv
 .venv/bin/python -m pytest tests/components/kibble/ -v
 ```
 
-Install `requirements_test_min.txt` in a separate environment for minimum HA and run the same pytest command. Test dependencies are separate from the runtime manifest; review HA and its compatible plugin together. See [adopted standards](STANDARDS.md) and the [checklist](ADOPTION_CHECKLIST.md) for exact environments and verification limits.
+The current environment also tests the exact minimum because both versions are identical. Tests check that `hacs.json`, the exact HA test requirement and the installed HA version agree. Test dependencies are separate from the runtime manifest; review HA and its compatible plugin together. See [adopted standards](STANDARDS.md) and the [checklist](ADOPTION_CHECKLIST.md) for exact environments and verification limits.
 
 ## Support and license
 
