@@ -8,7 +8,7 @@
 - 적용 점검표: [ADOPTION_CHECKLIST.md](ADOPTION_CHECKLIST.md)
 - 중앙 현황표: https://github.com/eigger/hass-repo-standards/blob/main/docs/adoption-status.md
 - 조율: /root; 구현: /root/implement_kibble_pilot; 독립 리뷰·검증: /root/review_kibble_pilot
-- 중앙 현황 갱신: 시작·단계 등록 완료; 지원 하한 복원 작업의 최종 커밋·독립/원격 검증 및 중앙 종료 기록은 주 에이전트가 후속 반영
+- 중앙 현황 갱신: 시작·단계·구현 검증 종료 보고 등록 완료 (`4726ab1d5c93ff1af0e9aaead2bb1631d80e1f28`); 문서 마감 후 중앙 표 상태를 완료로 전환
 - 테스트 경로: `tests/components/kibble/`
 - 현재 테스트 환경: Python 3.14.2 이상 / HA 2026.10.2 / pytest-homeassistant-custom-component 0.13.373 (`requirements_test.txt`)
 - 컴포넌트 지원 최소 환경: Python 3.13 / HA 2025.3.0 / pytest-homeassistant-custom-component 0.13.221 (`requirements_test_min.txt`)
@@ -27,7 +27,7 @@
 
 ## 예외
 
-현재 기록된 적용 예외는 없습니다. [PR #8](https://github.com/eigger/hass-kibble/pull/8)의 squash merge `e01ac2119c4ce571ffe82ab2b189173fc6c78b88`은 이전 채택과 일시적 지원 상향의 검증 이력입니다. 현재 검토 대상은 지원 하한을 2025.3.0으로 복원하는 작업 트리이며 최종 커밋·원격 검증은 대기합니다. 이 문서는 미래 커밋을 미리 검증했다고 주장하지 않습니다.
+현재 기록된 적용 예외는 없습니다. [PR #8](https://github.com/eigger/hass-kibble/pull/8)의 squash merge `e01ac2119c4ce571ffe82ab2b189173fc6c78b88`은 이전 채택과 일시적 지원 상향의 검증 이력입니다. 현재 검증 대상 구현은 지원 하한을 2025.3.0으로 복원한 `f1a70396bea833b25e8fbcac7fa837ac3769ec91`이며 독립·원격 검증을 완료했습니다. 이 문서 마감은 검증 대상 구현과 구분한 후속 변경입니다.
 
 초기 파일럿은 사용자 승인에 따라 직접 master에 반영했던 이력이 있으며 당시 GOV-03 예외 기록을 남겼습니다. 이후 PR #8에서 최종 채택 전체를 명시적으로 검토·검증해 그 예외를 해제했습니다. 최초 직접 반영 사실을 소급해 PR 작업으로 바꾸는 것은 아닙니다.
 
@@ -41,8 +41,12 @@ master branch protection 조회는 404(Branch not protected), rulesets는 빈 �
 
 ## 지원 정책 정정과 릴리스 경계
 
-PR #8에서 최신 테스트 갱신을 지원 하한 변경과 혼동해 HA 최소를 2026.10.2로 올렸던 상태를 정정합니다. 최종 지원 하한은 기존 2025.3.0이며 최신 실제 HA 테스트 환경만 2026.10.2/플러그인0.13.373으로 유지합니다. 최소 환경도 별도로 복원·검증합니다. domain·entry schema·unique ID는 그대로이므로 기존 설정과 통합 재등록에 관한 변경은 없습니다. 통합 버전·tag·GitHub Release는 만들지 않습니다.
+PR #8에서 최신 테스트 갱신을 지원 하한 변경과 혼동해 HA 최소를 2026.10.2로 올렸던 상태를 정정했습니다. 최종 지원 하한은 기존 2025.3.0이며 최신 실제 HA 테스트 환경만 2026.10.2/플러그인0.13.373으로 유지합니다. 최소 환경도 별도로 복원·검증했습니다. domain·entry schema·unique ID는 그대로이므로 기존 설정과 통합 재등록에 관한 변경은 없습니다. 통합 버전·tag·GitHub Release는 만들지 않습니다.
 
 ## 이전 PR #8 검증 이력
 
 [PR #8](https://github.com/eigger/hass-kibble/pull/8)을 squash merge한 구현 커밋 `e01ac2119c4ce571ffe82ab2b189173fc6c78b88`의 [Tests](https://github.com/eigger/hass-kibble/actions/runs/39033920073)와 [Validate](https://github.com/eigger/hass-kibble/actions/runs/39033920133)가 성공했습니다. 해당 커밋의 실제 HA 31개 테스트·pip check·Ruff·format·HACS·Hassfest 성공은 이전 검증 이력입니다. 이후 지원 정책 정정·최소 환경 복원의 최종 결과는 체크리스트에서 별도 확인합니다.
+
+## 최종 적용 판정
+
+적용 대상 필수 항목은 PASS 또는 이유가 있는 N/A이며 현재 예외는 없습니다. 실제 구현 커밋 `f1a70396bea833b25e8fbcac7fa837ac3769ec91`의 [Tests](https://github.com/eigger/hass-kibble/actions/runs/39034355878)는 최소·현재 실제 HA 환경 각각 31 passed·pip check·Ruff·format을 통과했고, [Validate](https://github.com/eigger/hass-kibble/actions/runs/39034355875)는 HACS 9/9·Hassfest를 통과했습니다. 독립 담당자가 확인한 종료 결과는 중앙 `4726ab1d5c93ff1af0e9aaead2bb1631d80e1f28`에 등록했습니다. 중앙 표의 상태 완료 전환은 문서 마감 이후 별도 행정 후속입니다. 실물·운영 서버와 HA frontend UI 미검증 한계는 그대로 유지합니다.
