@@ -1,11 +1,22 @@
 # Kibble Home Assistant Integration (hass-kibble)
 
-[![Tests](https://img.shields.io/github/actions/workflow/status/eigger/hass-kibble/tests.yml?branch=master&style=flat-square&label=tests)](https://github.com/eigger/hass-kibble/actions/workflows/tests.yml)
-[![GitHub Release](https://img.shields.io/github/v/release/eigger/hass-kibble?style=flat-square)](https://github.com/eigger/hass-kibble/releases)
+<!-- hass-standards:badges:start -->
+[![HACS Custom](https://img.shields.io/badge/HACS-Custom-41BDF5?style=flat-square)](#installation)
+[![Release](https://img.shields.io/github/v/release/eigger/hass-kibble?style=flat-square)](https://github.com/eigger/hass-kibble/releases)
+[![Home Assistant minimum](https://img.shields.io/badge/HA-%E2%89%A5%202025.3.0-41BDF5?style=flat-square)](hacs.json)
+[![Tests](https://img.shields.io/github/actions/workflow/status/eigger/hass-kibble/tests.yml?branch=master&style=flat-square&label=Tests)](https://github.com/eigger/hass-kibble/actions/workflows/tests.yml)
+[![Validate](https://img.shields.io/github/actions/workflow/status/eigger/hass-kibble/validate.yml?branch=master&style=flat-square&label=Validate)](https://github.com/eigger/hass-kibble/actions/workflows/validate.yml)
 [![License](https://img.shields.io/github/license/eigger/hass-kibble?style=flat-square)](LICENSE)
-[![HACS](https://img.shields.io/badge/HACS-Custom-orange.svg)](https://github.com/hacs/integration)
+<!-- hass-standards:badges:end -->
 
 A **read-only** custom Home Assistant integration for Kibble. It polls the daily summary, individual feeding and care records, overdue medication and reminders every five minutes and exposes them as sensors.
+
+[한국어](README.md)
+
+## Requirements
+
+- Home Assistant **2025.3.0 or newer**, a reachable Kibble server and a pet-bound `state:read` token.
+- Local HTTP/HTTPS polling; no Bluetooth adapter or proxy is used.
 
 ## Installation
 
@@ -16,7 +27,9 @@ A **read-only** custom Home Assistant integration for Kibble. It polls the daily
 
 Issue a read-only token for a selected pet from **Kibble → More → API explorer → Integration tokens**. The plaintext is displayed once, immediately after creation, so copy it then.
 
-## Entities
+For manual installation, copy `custom_components/kibble` into the same path under your HA configuration directory and restart. To remove, delete the integration entry, uninstall through HACS or remove that directory, then restart. Update expired tokens through the reauthentication form.
+
+## Supported features and entities
 
 - **Today's events**: Total event count for today. Per-event-type counts and unit-separated totals are available in its `today_summary` attribute.
 - **Daily event list**: The `today_events` attribute lists event time, type, offered and consumed amounts, product/preset, note and medication course, newest first. It includes up to 100 events; `today_events_truncated` indicates when more exist.
@@ -31,10 +44,35 @@ Per-event sensors are created from each type's latest event and remain available
 
 The default update interval is five minutes. A failed request keeps the last successful data and increments the consecutive error count. The count returns to zero after the next successful request. Authentication failures also keep the current data while starting Home Assistant's re-authentication flow. This integration never writes data to Kibble.
 
+## Usage
+
+```yaml
+action: button.press
+target:
+  entity_id: button.bori_refresh_now
+```
+
+Select the actual refresh button entity created by your installation.
+
+## Limitations and troubleshooting
+
+This integration is read-only. Add records and change settings in Kibble. After connection failures, inspect the last successful values together with the error count. Check the server address, network access and `state:read` permission; reauthenticate rejected tokens. Remove tokens, private URLs, pet and care details from issue reports. Tests use actual HA with mocked HTTP responses and do not certify a live server.
+
 ## Development
 
+Use Python 3.14 for the current environment and Python 3.13 for minimum HA.
+
 ```sh
-pip install pytest ruff aiohttp
-python -m ruff check custom_components/ tests/
-python -m pytest tests/ -v
+python3.14 -m venv .venv
+.venv/bin/python -m pip install -r requirements_test.txt -r requirements_lint.txt
+.venv/bin/python -m pip check
+.venv/bin/python -m ruff check .
+.venv/bin/python -m ruff format --check .
+.venv/bin/python -m pytest tests/components/kibble/ -v
 ```
+
+Install `requirements_test_min.txt` in a separate environment for minimum HA and run the same pytest command. Test dependencies are separate from the runtime manifest; review HA and its compatible plugin together. See [adopted standards](STANDARDS.md) and the [checklist](ADOPTION_CHECKLIST.md) for exact environments and verification limits.
+
+## Support and license
+
+Report issues through [GitHub Issues](https://github.com/eigger/hass-kibble/issues). Licensed under [MIT](LICENSE).

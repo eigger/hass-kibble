@@ -45,12 +45,11 @@ class KibbleCoordinator(DataUpdateCoordinator[dict[str, Any]]):
         except KibbleError as err:
             self.consecutive_errors += 1
             self.last_error = (
-                f"{type(err).__name__}: {err}"
-                if str(err)
-                else type(err).__name__
+                f"{type(err).__name__}: {err}" if str(err) else type(err).__name__
             )
             self.last_error_at = dt_util.utcnow().isoformat()
-            _LOGGER.warning(
+            log = _LOGGER.warning if self.consecutive_errors == 1 else _LOGGER.debug
+            log(
                 "Kibble update failed (%s consecutive failures): %s",
                 self.consecutive_errors,
                 self.last_error,
@@ -68,6 +67,8 @@ class KibbleCoordinator(DataUpdateCoordinator[dict[str, Any]]):
                 raise ConfigEntryAuthFailed(str(err)) from err
             raise UpdateFailed(str(err)) from err
 
+        if self.consecutive_errors:
+            _LOGGER.info("Kibble updates recovered")
         self.consecutive_errors = 0
         self._reauth_started = False
         self.last_success_at = dt_util.utcnow().isoformat()

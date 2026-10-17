@@ -100,9 +100,7 @@ async def async_setup_entry(
     entities.extend(_new_event_sensors(coordinator, entry, pet_id, state, known_keys))
     known_measurements: set[str] = set()
     entities.extend(
-        _new_measurement_sensors(
-            coordinator, entry, pet_id, state, known_measurements
-        )
+        _new_measurement_sensors(coordinator, entry, pet_id, state, known_measurements)
     )
     async_add_entities(entities)
 
@@ -168,7 +166,9 @@ def _new_measurement_sensors(
         for row in rows:
             if row.get("eventTypeKey") != event_key:
                 continue
-            row_unit = row.get("lastQuantityUnit") or row.get("unit") or row.get("defaultUnit")
+            row_unit = (
+                row.get("lastQuantityUnit") or row.get("unit") or row.get("defaultUnit")
+            )
             if row_unit:
                 units.add(str(row_unit))
             for total in row.get("totals", []):
@@ -417,9 +417,7 @@ class KibbleMeasurementSensor(KibbleCoordinatorSensor):
         self._unit = unit
         self._is_latest = is_latest
         self._attr_state_class = (
-            SensorStateClass.MEASUREMENT
-            if is_latest
-            else SensorStateClass.TOTAL
+            SensorStateClass.MEASUREMENT if is_latest else SensorStateClass.TOTAL
         )
         self._attr_translation_key = metric_key
         self._attr_translation_placeholders = {"unit": unit}

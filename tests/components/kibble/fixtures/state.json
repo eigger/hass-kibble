@@ -1,0 +1,8 @@
+{
+  "pet": {"id": "pet-1", "name": "Bori", "species": "DOG"},
+  "todaySince": "2026-10-04T15:00:00+00:00",
+  "todaySummary": [{"eventTypeKey": "meal", "count": 2, "totals": [{"unit": "g", "quantityOffered": 60, "quantity": 50}]}],
+  "lastEvents": [{"eventTypeKey": "meal", "occurredAt": "2026-10-04T22:00:00Z", "quantity": 30, "unit": "g"}],
+  "medication": {"overdueDoses": []},
+  "reminders": []
+}

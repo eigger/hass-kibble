@@ -57,8 +57,13 @@ class KibbleApi:
         except KibbleAuthError:
             raise
         except (ClientError, ValueError, TimeoutError) as err:
-            detail = str(err).strip() or type(err).__name__
-            raise KibbleConnectionError(f"Kibble request failed: {detail}") from err
+            # Network exceptions can include URLs, credentials or response details.
+            detail = (
+                "timed out (TimeoutError)"
+                if isinstance(err, TimeoutError)
+                else type(err).__name__
+            )
+            raise KibbleConnectionError(f"Kibble request failed: {detail}") from None
 
         if not isinstance(payload, dict) or not isinstance(payload.get("pet"), dict):
             raise KibbleConnectionError("Kibble returned an invalid state response")

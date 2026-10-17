@@ -1,11 +1,22 @@
 # Kibble Home Assistant Integration (hass-kibble)
 
-[![Tests](https://img.shields.io/github/actions/workflow/status/eigger/hass-kibble/tests.yml?branch=master&style=flat-square&label=tests)](https://github.com/eigger/hass-kibble/actions/workflows/tests.yml)
-[![GitHub Release](https://img.shields.io/github/v/release/eigger/hass-kibble?style=flat-square)](https://github.com/eigger/hass-kibble/releases)
+<!-- hass-standards:badges:start -->
+[![HACS Custom](https://img.shields.io/badge/HACS-Custom-41BDF5?style=flat-square)](#설치)
+[![Release](https://img.shields.io/github/v/release/eigger/hass-kibble?style=flat-square)](https://github.com/eigger/hass-kibble/releases)
+[![Home Assistant minimum](https://img.shields.io/badge/HA-%E2%89%A5%202025.3.0-41BDF5?style=flat-square)](hacs.json)
+[![Tests](https://img.shields.io/github/actions/workflow/status/eigger/hass-kibble/tests.yml?branch=master&style=flat-square&label=Tests)](https://github.com/eigger/hass-kibble/actions/workflows/tests.yml)
+[![Validate](https://img.shields.io/github/actions/workflow/status/eigger/hass-kibble/validate.yml?branch=master&style=flat-square&label=Validate)](https://github.com/eigger/hass-kibble/actions/workflows/validate.yml)
 [![License](https://img.shields.io/github/license/eigger/hass-kibble?style=flat-square)](LICENSE)
-[![HACS](https://img.shields.io/badge/HACS-Custom-orange.svg)](https://github.com/hacs/integration)
+<!-- hass-standards:badges:end -->
 
 Kibble을 Home Assistant에 **읽기 전용**으로 연결하는 커스텀 통합입니다. Kibble 서버의 오늘 요약, 개별 제공·섭취 및 케어 기록, 복약 지연 및 리마인더를 5분마다 읽어 센서로 표시합니다.
+
+[English](README.en.md)
+
+## 요구사항
+
+- Home Assistant **2025.3.0 이상**, 네트워크로 접근 가능한 Kibble 서버와 반려동물별 `state:read` 토큰.
+- 로컬 HTTP/HTTPS 조회 전용이며 Bluetooth 기기나 프록시는 사용하지 않습니다.
 
 ## 설치
 
@@ -16,7 +27,9 @@ Kibble을 Home Assistant에 **읽기 전용**으로 연결하는 커스텀 통�
 
 Kibble 웹의 **더보기 → API 탐색기 → 외부 연동 토큰**에서 반려동물을 선택해 읽기 전용 토큰을 발급할 수 있습니다. 원문은 발급 직후에만 표시되므로 바로 복사하세요.
 
-## 엔티티
+수동 설치는 `custom_components/kibble`을 HA 설정 폴더의 같은 경로에 복사하고 재시작합니다. 제거할 때는 통합 항목을 삭제한 후 HACS에서 제거하거나 해당 폴더를 삭제하고 재시작합니다. 토큰은 통합의 재인증 화면에서 갱신합니다.
+
+## 지원 기능과 엔티티
 
 - **오늘 기록 수**: 오늘 발생한 기록의 전체 횟수. 이벤트 유형별 횟수와 단위별 합계는 이 센서의 `today_summary` 속성에 표시됩니다.
 - **일일 기록 목록**: 같은 센서의 `today_events` 속성에 시각, 기록 종류, 제공·섭취량, 품목/프리셋, 메모 및 복약 과정을 최신순으로 표시합니다. 최대 100건이며 초과 여부는 `today_events_truncated`로 알립니다.
@@ -31,10 +44,35 @@ Kibble 웹의 **더보기 → API 탐색기 → 외부 연동 토큰**에서 반
 
 기본 갱신 주기는 5분입니다. 조회에 실패하면 마지막 정상 데이터를 유지하고 연속 오류 횟수를 올립니다. 다음 정상 조회가 성공하면 오류 횟수는 0으로 돌아갑니다. 인증 실패 시에도 기존 값을 유지하면서 재인증 흐름을 시작합니다. 이 통합은 Kibble에 데이터를 쓰지 않습니다.
 
+## 사용 예시
+
+```yaml
+action: button.press
+target:
+  entity_id: button.bori_refresh_now
+```
+
+엔티티 ID는 예시이며 실제 설치에서 생성된 새로고침 버튼을 선택합니다.
+
+## 제한과 문제 해결
+
+읽기 전용 통합이며 기록 입력·설정 변경은 Kibble에서 수행합니다. 연결 실패 중에는 마지막 정상값과 오류 횟수를 함께 확인하세요. 서버 주소, 네트워크 접근, `state:read` 권한을 확인하고 인증 실패는 재인증합니다. 문제 보고 시 토큰·개인 URL·반려동물·케어 기록을 제거하세요. 테스트는 HTTP 응답을 대체한 실제 HA 환경이며 실물 서버 검증을 대신하지 않습니다.
+
 ## 개발
 
+현재 환경은 Python 3.14, 최소 HA 환경은 Python 3.13을 사용합니다.
+
 ```sh
-pip install pytest ruff aiohttp
-python -m ruff check custom_components/ tests/
-python -m pytest tests/ -v
+python3.14 -m venv .venv
+.venv/bin/python -m pip install -r requirements_test.txt -r requirements_lint.txt
+.venv/bin/python -m pip check
+.venv/bin/python -m ruff check .
+.venv/bin/python -m ruff format --check .
+.venv/bin/python -m pytest tests/components/kibble/ -v
 ```
+
+최소 환경은 별도 가상환경에서 `requirements_test_min.txt`를 설치해 같은 pytest 명령을 실행합니다. 테스트 의존성은 런타임 manifest와 분리하며 호환 HA·플러그인 버전을 함께 검토합니다. 자세한 환경·검증 범위는 [적용 기준](STANDARDS.md)과 [체크리스트](ADOPTION_CHECKLIST.md)를 참고하세요.
+
+## 지원과 라이선스
+
+문제는 [GitHub Issues](https://github.com/eigger/hass-kibble/issues)에 남겨주세요. [MIT 라이선스](LICENSE)를 따릅니다.

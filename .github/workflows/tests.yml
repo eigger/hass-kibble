@@ -1,34 +1,36 @@
 name: Tests
-
 on:
   push:
     branches: [master]
   pull_request:
-
+  workflow_dispatch:
+  schedule:
+    - cron: "23 4 * * 1"
+permissions:
+  contents: read
 concurrency:
-  group: tests-${{ github.ref }}
+  group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
-
 jobs:
-  lint:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v5
-      - uses: actions/setup-python@v6
-        with:
-          python-version: "3.12"
-      - run: pip install ruff
-      - run: python -m ruff check custom_components/ tests/
-  test:
-    runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        python-version: ["3.12", "3.13", "3.14"]
-    steps:
-      - uses: actions/checkout@v5
-      - uses: actions/setup-python@v6
-        with:
-          python-version: ${{ matrix.python-version }}
-      - run: pip install pytest aiohttp
-      - run: python -m pytest tests/ -v
+  current:
+    uses: eigger/hass-repo-standards/.github/workflows/python-tests.yml@422115af66c329a9617e10a11cd321acc4221e13 # reviewed standards commit
+    with:
+      domain: kibble
+      python-versions: '["3.14"]'
+      lint-python-version: '3.14'
+      requirements: requirements_test.txt
+      expected-ha-version: '2026.10.2'
+      test-profile: ha
+      ha-components: 'button sensor'
+      pytest-args: tests/components/kibble/ -v
+  minimum-ha:
+    uses: eigger/hass-repo-standards/.github/workflows/python-tests.yml@422115af66c329a9617e10a11cd321acc4221e13 # reviewed standards commit
+    with:
+      domain: kibble
+      python-versions: '["3.13"]'
+      lint-python-version: '3.14'
+      requirements: requirements_test_min.txt
+      expected-ha-version: '2025.3.0'
+      test-profile: ha
+      ha-components: 'button sensor'
+      pytest-args: tests/components/kibble/ -v

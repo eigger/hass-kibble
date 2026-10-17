@@ -1,0 +1,16 @@
+{
+  "repository": "eigger/hass-kibble",
+  "default_branch": "master",
+  "domain": "kibble",
+  "hacs": "custom",
+  "release": true,
+  "analytics": false,
+  "readmes": [
+    "README.md",
+    "README.en.md"
+  ],
+  "installation_links": {
+    "README.md": "#설치",
+    "README.en.md": "#installation"
+  }
+}

@@ -153,3 +153,21 @@ def test_invalid_state_payload_is_rejected(payload):
     )
     with pytest.raises(KibbleConnectionError):
         run(api.async_get_state())
+
+
+def test_network_error_does_not_expose_credentials():
+    api = KibbleApi(
+        FakeSession(
+            FakeResponse(
+                error=ClientError(
+                    "https://user:secret@private.test/?token=private-token"
+                )
+            )
+        ),
+        "http://kibble",
+        "private-token",
+    )
+    with pytest.raises(KibbleConnectionError) as exc:
+        run(api.async_get_state())
+    assert str(exc.value) == "Kibble request failed: ClientError"
+    assert exc.value.__suppress_context__
