@@ -11,5 +11,36 @@
   "installation_links": {
     "README.md": "#installation",
     "README.ko.md": "#설치"
+  },
+  "readme": {
+    "title": "Kibble Home Assistant Integration (hass-kibble)",
+    "descriptions": {
+      "en": "A read-only Home Assistant custom integration for Kibble pet care records.",
+      "ko": "Kibble 반려동물 케어 기록을 읽기 전용으로 연결하는 Home Assistant 커스텀 통합입니다."
+    },
+    "issues": true,
+    "discussions": true,
+    "license_name": "MIT License",
+    "license_notices": {
+      "en": [],
+      "ko": []
+    },
+    "related_projects": [
+      {
+        "name": "Kibble",
+        "url": "https://github.com/eigger/kibble",
+        "description": {
+          "en": "The pet care server used by this integration and the source of its brand icon.",
+          "ko": "이 통합이 연결하는 반려동물 케어 서버이자 브랜드 아이콘의 원본입니다."
+        }
+      }
+    ]
+  },
+  "categories_review": {
+    "value": [
+      "pets"
+    ],
+    "integration_type": null,
+    "source": "Kibble pet-bound state:read API exposes feeding, weight, medication and care records (README.md and custom_components/kibble/api.py). pets is the primary product/use category; no secondary category is needed. Reviewed 2026-10-23."
   }
 }

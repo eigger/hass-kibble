@@ -47,6 +47,6 @@ Select the actual refresh button entity created by your installation.
 
 This integration is read-only. Add records and change settings in Kibble. After connection failures, inspect the last successful values together with the error count. Check the server address, network access and `state:read` permission; reauthenticate rejected tokens. Remove tokens, private URLs, pet and care details from issue reports. Tests use actual HA with mocked HTTP responses and do not certify a live server.
 
-## Usage badge
+## Downloads badge
 
-The Usage badge reports installations participating in Home Assistant Analytics, rather than all installations. It stays linked to the live data even when this integration has no published count yet; an unavailable value does not mean zero installations.
+The Downloads badge reports downloads of attached assets across all GitHub releases, rather than active installations or unique users. HACS downloads the `kibble.zip` release asset. Installations before ZIP distribution and GitHub-generated Source code ZIP/tarball downloads are not counted. Missing data or a failed lookup does not mean zero installations.

@@ -1,7 +1,7 @@
 # 적용한 공통 규칙
 
-- 표준: https://github.com/eigger/hass-repo-standards/tree/7528a90b483a6740c0b1bdd9176f3e33355eb385
-- 참조 커밋 SHA: `7528a90b483a6740c0b1bdd9176f3e33355eb385`
+- 표준: https://github.com/eigger/hass-repo-standards/tree/4fa557eaa7142b87a6cae8b09c249cf50c3865c6
+- 참조 커밋 SHA: `4fa557eaa7142b87a6cae8b09c249cf50c3865c6`
 - 채택일: 2026-10-17
 - profile: integration / ha
 - 기본 브랜치: master; domain: kibble
@@ -14,6 +14,22 @@
 - 컴포넌트 지원 최소 환경: Python 3.13 / HA 2025.3.0 / pytest-homeassistant-custom-component 0.13.221 (`requirements_test_min.txt`)
 - 최신 테스트 버전 갱신과 컴포넌트 지원 하한 변경을 구분하며, 이번 작업의 최종 지원 하한은 기존 2025.3.0을 유지
 - 최소 외부 라이브러리: 해당 없음 (`manifest.requirements=[]`)
+
+## 2026-10-23 공용 기준·ZIP 다운로드·브랜드 후속
+
+이번 검토 기준은 `4fa557eaa7142b87a6cae8b09c249cf50c3865c6`이며, 아래 2026-10-17 기록은 당시 구현·검증 이력입니다. 이번 변경은 로컬 작업 트리이며 과거 기본 브랜치 CI 성공과 구분합니다. 최신 중앙 main을 `git ls-remote`로 확인하고 별도 임시 checkout에서 검토했습니다. 기존 중앙 checkout의 사용자 수정은 보존했습니다.
+
+- DOC-01~06: 중앙 생성기로 양언어 header/support/related-projects/license 및 설치 관리 영역을 적용했습니다. 기존 설치·기능·예제·상세 문서 본문을 유지하고 Downloads 의미만 배포 방식에 맞춰 정정했습니다.
+- HACS-02~04: Custom 상태를 유지하며 `zip_release: true`, `filename: kibble.zip`과 중앙 Release caller를 추가했습니다. Downloads는 전체 릴리스 첨부 asset의 다운로드 합계이며 활성 설치 수가 아닙니다.
+- GOV-02, CI-01~05: Tests/Validate/Release 및 준수 action을 검토 SHA로 고정하고 각 Tests job의 `standards-ref`를 일치시켰습니다. 최신 중앙 이벤트 계약에 따라 Tests의 주간 schedule은 제거하고 Validate의 주간 schedule을 월요일 03:23 UTC로 맞췄습니다. push/PR/수동 실행과 최소/current job은 유지합니다.
+- HA-02: Kibble의 반려동물별 급여·체중·복약·케어 기록을 근거로 주 분류 `pets`를 선택했습니다. 엔티티 플랫폼에서 추정하지 않았으며 보조 분류는 없습니다. 분류와 판단은 `.hass-standards.json.categories_review`에 기록했습니다.
+- TEST-03/08, HA-13: 빈 package init, 중앙 루트 fixture, domain fixture 관리 영역을 적용했습니다. 실제 기존 회귀 테스트는 보존합니다.
+- HACS-05: stable Hassfest의 custom manifest categories 미지원에 대해 중앙의 공식 소스 빌드 경로를 사용합니다. `hassfest-core-ref: ec18d8b25d1ee39aa8b85a72a170e42bee33228c`는 실제 확인한 Core taxonomy·Dockerfile·entrypoint·manifest validator의 기준입니다. 검사를 제외하거나 manifest를 전처리하지 않습니다. 기본 공식 이미지가 해당 schema를 지원하면 이 입력을 제거하고 같은 대상에서 재검증합니다.
+- 브랜드: 기존 아이콘 두 파일을 바이트 그대로 유지하고 투명 가로 로고 두 해상도를 추가했습니다. 출처·MIT·폰트 권리·재생성·해시는 `custom_components/kibble/brand/README.md`에 있습니다. README 양언어에 같은 로고를 표시합니다.
+
+HA 지원 최소 2025.3.0/current 검증 2026.10.2, 통합 버전 0.1.5와 데이터 계약은 그대로입니다. 기존 Release 0.1.5에는 새 ZIP을 업로드하지 않았습니다. 이 설정이 원격에 반영되면 **변경을 포함하는 새 버전의 manifest와 일치하는 tag로 Release를 게시**해야 HACS ZIP 다운로드가 가능합니다. 새 Release 게시 이벤트가 ZIP을 첨부하며 기존 tag의 workflow/asset을 소급 변경하지 않습니다. 로컬 제공 ZIP은 검증용 작업 트리 스냅샷이고 새 정식 릴리스가 아닙니다.
+
+이번 검증의 실제 명령·환경·결과·독립 리뷰·미검증은 [체크리스트의 후속 기록](ADOPTION_CHECKLIST.md#2026-10-23-공용-기준zip-다운로드브랜드-후속-검증)에 모았습니다. 원격 HACS/Actions·새 Release asset 다운로드·실물 서버·HA frontend 표시는 미검증입니다. 로컬 변경 검증을 전체 원격 재채택 완료로 기록하지 않습니다. 중앙 현황은 로컬 행만 갱신했고 원격 게시하지 않았습니다.
 
 ## 검증 환경과 경계
 
@@ -56,3 +72,7 @@ PR #8에서 최신 테스트 갱신을 지원 하한 변경과 혼동해 HA 최�
 영문은 [README.md](README.md)를 기본으로 제공하고 한국어 전체 문서는 [README.ko.md](README.ko.md)에 유지합니다. 종전 영문 경로 [README.en.md](README.en.md)는 기본 문서로 안내합니다. 두 언어의 상호 링크·설치 앵커·관리 배지 설정을 함께 유지하며, manifest domain `kibble`의 Usage 동적 배지는 사전 집계 확인이나 조회 성공을 조건으로 하지 않습니다. Analytics 참여 설치 집계라는 의미를 문서에 명시하고 미집계·조회 불가를 0으로 표현하지 않습니다. 지원 하한·테스트 환경·런타임·CI 실행 동작은 유지합니다. 새 기준 `7528a90b483a6740c0b1bdd9176f3e33355eb385`으로 세 caller의 SHA를 함께 갱신했으며, 이전 기준과 호출 workflow 내용이 동일한 문서·기준 고정 후속 작업입니다. 새 최종 커밋의 원격 CI 결과는 대기 중이며 위 구현 검증 이력과 구분합니다.
 
 메인 README는 빠른 시작 중심으로 정리하고 상세 사용·오류 대응과 개발·테스트 안내는 영문 `docs/user-guide.md`·`docs/development.md`, 한국어 `docs/ko/`에 보존해 문서 표에서 연결합니다. 기존 언어별 설치·토큰·엔티티 속성·기록 보관·테스트 조합 안내를 삭제하지 않는 문서 분리입니다.
+
+## 2026-10-23 릴리스 0.1.6
+
+사용자의 릴리스 요청에 따라 통합 버전을 0.1.6으로 올려 위 공용화·ZIP 배포·브랜드 변경을 정식 배포합니다. 지원 최소 HA 2025.3.0은 유지합니다. 이전 절의 로컬 미게시 표기는 당시 검증 경계이며, 이 후속 릴리스의 실제 커밋·CI·ZIP 게시 결과는 체크리스트에 별도 기록합니다.

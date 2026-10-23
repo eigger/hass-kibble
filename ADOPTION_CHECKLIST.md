@@ -1,5 +1,7 @@
 # 공통 규칙 적용 체크리스트
 
+현재 후속 변경은 아래 **2026-10-23 공용 기준·ZIP 다운로드·브랜드 후속 검증**을 따릅니다. 이전 완료/PASS 표는 해당 시점 구현의 이력이며 이번 작업 트리의 원격 CI 성공을 의미하지 않습니다.
+
 hass-kibble 최초 채택 파일럿의 실제 확인 기록입니다. [사용법과 판정 기준](https://github.com/eigger/hass-repo-standards/blob/7528a90b483a6740c0b1bdd9176f3e33355eb385/docs/checklist.md)을 읽고, 아래 규칙은 `STANDARDS.md`에 기록한 표준 커밋에서 확인합니다. 태그·릴리스 대신 검토한 표준 커밋 SHA를 기준으로 합니다.
 
 ## 검토 대상
@@ -153,3 +155,30 @@ PR #9~12는 삭제한 과거 최소 환경만 변경하는 제안이므로 root�
 BLE ESL의 메인 안내→세부 사용/문제 해결·개발 문서 연결 방식을 참고해 양쪽 README에는 핵심 기능·지원 하한·빠른 설치·대표 예시·읽기 전용/오류 주의·문서 표·지원/라이선스만 남겼습니다. 기존 상세 설치·토큰·제거·엔티티 속성·recorder·오류 대응·Usage 의미는 `docs/user-guide.md`와 `docs/ko/user-guide.md`, 개발 버전 조합·명령·최소/최신 정책은 `docs/development.md`와 `docs/ko/development.md`에 보존했습니다. 각 문서에서 README와 번역을 상호 연결합니다. HTTP 통합 특성대로 Bluetooth 설정은 추가하지 않았으며 실행 코드·지원 하한·테스트 버전은 변경하지 않았습니다. 기존 상세절 전체 보존 자동 비교, README/추가 문서의 상대 경로·설치 앵커와 번역 연결, 배지 생성기 `--check`, `git diff --check`를 구현 담당자가 확인했습니다. 독립 검토 결과는 아래 후속 기록과 구분하며 새 최종 커밋 CI는 대기 상태입니다.
 
 최종 기준 `7528a90b483a6740c0b1bdd9176f3e33355eb385`에 맞춰 `STANDARDS.md`·현재 기준 표·세 caller의 전체 SHA를 일치시키고 로컬 AGENTS의 간결한 메인/상세 문서·조건부 Bluetooth 지침을 동기화했습니다. Kibble의 BLE 전용 문제 해결은 N/A이며 HTTP 사용 안내만 보존합니다. 문서/배지/지원 경로에 대한 `/root/review_usage_language_fix`의 독립 검토 PASS 근거는 위와 같고, 문서 분리는 `/root/review_usage_language_fix`가 이전 HEAD의 영한 상세절을 섹션별 비교해 사용/개발 문서의 정확한 내용 보존, 모든 README/docs 상대 파일·heading fragment, 배지 생성기 `--check`·`git diff --check`를 독립 재확인해 PASS입니다. 최종 R 핀·동기화 변경은 추가 독립 검토를 요청했습니다. 새 최종 통합 커밋 및 원격 Tests/Validate 결과는 아직 대기 상태입니다.
+
+## 2026-10-23 공용 기준·ZIP 다운로드·브랜드 후속 검증
+
+- 대상: 기준 HEAD `890edfc70ebe8820abe8ba23e2eea29592ae84a8` 위의 로컬 작업 트리. 검토 기준 `4fa557eaa7142b87a6cae8b09c249cf50c3865c6` (당일 원격 main 확인).
+- 범위: README 공통 영역·Downloads·My HACS 링크, 공용 CI 최신 핀/준수 검사, ZIP release caller/metadata, pets 분류, 테스트 foundation, 아이콘 보존/로고 추가. 기존 최소 지원·current requirements·런타임 동작 보존.
+- 리뷰: root 구현/검증, `brand_assets` 브랜드 구현, 구현하지 않은 `review_adoption` 독립 리뷰. GOV-05의 CI 실행 변경 조건에 따라 별도 독립 리뷰를 수행했습니다.
+
+| 항목 | 상태 | 실제 근거 |
+|---|---|---|
+| DOC-01~06 관리 영역·배지·설치 링크 | PASS | `python3 /tmp/hass-kibble-standards-20261023/scripts/check_integration.py . --write-readmes` 후 `--check` 성공. `sync_badges.py . --check`와 독립 양언어 본문/번역·설치 절 보존 검토. Downloads 의미·한계도 양언어 상세 안내에 정정 |
+| CI-01~05/GOV-02 | PASS (로컬) | 세 caller/준수 action full SHA, 두 Tests job의 standards-ref 일치. `/tmp/actionlint-payload-review.5ISk0T/actionlint`, `git diff --check` 성공. remote Issues/Discussions 활성 및 기본 브랜치 master, 기존 정식 Release 0.1.5 확인 |
+| HA-02 제품 분류 | PASS (로컬) | 반려동물 케어 서버 API 용도로 pets 선택. categories_review와 manifest 순서 일치, 오프라인 taxonomy 및 실제 최소/current HA 로딩 성공. 독립 의미 검토 |
+| TEST-03/08·회귀 | PASS | current: Python 3.14.5 / HA 2026.10.2 / 플러그인 0.13.373, minimum: Python 3.13.14 / HA 2025.3.0 / 플러그인 0.13.221. 별도 새 uv 환경에서 각 requirements를 의존성 포함 설치, 각각 `python -m pytest tests/components/kibble/ -q` 31 passed. `uv pip check --python <각 환경>/bin/python` 성공. button/sensor의 HA 추가 requirements는 빈 배열. 최소 aiohttp 3.11.13의 기존 yanked pin 재현 |
+| lint/format | PASS | current 환경 Ruff 0.17.1 `ruff check .`, `ruff format --check .` 31 files 통과 |
+| HACS-04 ZIP 구성 | PASS (로컬) | 실제 작업 트리 통합 파일과 hacs.json을 `/private/tmp/kibble-release-snapshot-s6n24y5v`에 복사해 별도 임시 git snapshot/tag로 중앙 `build_release_zip.py --tag 0.1.5` 실행. 원본 저장소 index/commit/tag 변경 없음. 16개 ZIP 멤버 전부 작업 트리 bytes 일치, 루트 manifest/init·4 brand PNG, 상위 custom_components 및 cache 제외, CRC 통과. ZIP SHA256 `f8d44a51c7db2a91af3051d4a79cd279961ae040049ee077485032b00c50e242` |
+| HACS-05 Hassfest | PASS (로컬) | 실제 공식 소스 `ec18d8b25d1ee39aa8b85a72a170e42bee33228c` checkout/Dockerfile/entrypoint/manifest schema 확인. 기존 로컬 공식 소스 기반 이미지 `sha256:d6f981f031454c43bdd833c5c7a795a9392f69a82818f93379e88a655d358c5f`에 현재 checkout을 `/github/workspace`로 mount해 전체 validator 실행: Integrations 1, Invalid integrations 0. 새 runner에서의 source build/원격 job은 미실행 |
+| 브랜드 자산 | PASS (파일) | 기존 icon 256/512px SHA 보존, RGBA logo 938×256/1876×512 추가. 재생성 동일 바이트, PNG 규격·투명도·문서 해시·시각 검사. 독립 로고 시각 확인. 실제 HA UI 표시와 구분 |
+| GOV-05 독립 리뷰 | PASS | review_adoption이 실제 diff·중앙 규칙·양언어 본문/번역·release caller·분류·기존 지원 하한 보존 검토. 중앙 검사·actionlint·Ruff·format·diff 재실행 성공. 같은 새 환경에서 독립 current 31 passed(1.80초), minimum 31 passed(2.19초). 최종 STANDARDS/체크리스트 문서 기록까지 독립 검토 PASS, 필수 지적 없음 |
+| 원격 HACS/Actions·새 릴리스 ZIP 설치 | TODO | 작업 트리 미게시. HACS action은 원격 콘텐츠를 읽으므로 변경 전 원격 실행을 현재 변경의 검증으로 대체하지 않음. 새 버전/tag/Release 게시 후 ZIP 첨부 및 실제 다운로드 확인 필요 |
+| GOV-04 중앙 게시 | TODO | 중앙 로컬 checkout의 기존 사용자 수정을 보존하고 해당 리포 행만 갱신. commit/push를 수행하지 않았으므로 원격 현황 게시 미완료 |
+| 실물 Kibble 서버·HA frontend | 미검증 | HTTP 외부 경계 mock의 실제 HA 로딩·자동 테스트와 PNG 검증 범위만 확인. 로컬 brand 표시는 HA 2026.3+이며 기존 지원 최소를 올리지 않음 |
+
+로컬 구현·검증은 통과했으며 원격 CI·정식 배포는 미실행입니다. 기존 릴리스 0.1.5의 asset을 덮어쓰거나 새 태그/Release를 원격 생성하지 않았습니다. 변경이 포함된 새 정식 버전의 manifest와 tag를 맞춰 게시해야 ZIP 배포가 활성화됩니다. 로컬 제공 ZIP은 정식 0.1.5 배포 변경이 아닌 검증용 작업 트리 스냅샷입니다.
+
+## 릴리스 0.1.6 준비 (2026-10-23)
+
+사용자가 릴리스를 명시 요청해 0.1.6으로 patch 증가했습니다. 이전 0.1.5 미게시 설명은 작업 당시 이력입니다. 최소 HA 2025.3.0, current HA 2026.10.2 및 데이터 계약은 유지합니다. 버전 변경 후 중앙 검사·actionlint·Ruff·format·최소/current 31개 테스트를 재검증했습니다. 이 커밋의 원격 Tests/Validate 성공을 확인한 후 일치하는 0.1.6 tag와 GitHub Release를 게시하고, published 이벤트의 ZIP 첨부 결과를 확인합니다. 실제 게시 결과는 후속 검증 기록으로 구분합니다.

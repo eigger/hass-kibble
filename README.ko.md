@@ -1,18 +1,24 @@
+<!-- hass-standards:header:start -->
 # Kibble Home Assistant Integration (hass-kibble)
 
+Kibble 반려동물 케어 기록을 읽기 전용으로 연결하는 Home Assistant 커스텀 통합입니다.
+
+[English](README.md) | **한국어**
+
 <!-- hass-standards:badges:start -->
-[![HACS Custom](https://img.shields.io/badge/HACS-Custom-41BDF5?style=flat-square)](#설치)
-[![Release](https://img.shields.io/github/v/release/eigger/hass-kibble?style=flat-square)](https://github.com/eigger/hass-kibble/releases)
-[![Home Assistant minimum](https://img.shields.io/badge/HA-%E2%89%A5%202025.3.0-41BDF5?style=flat-square)](hacs.json)
-[![Tests](https://img.shields.io/github/actions/workflow/status/eigger/hass-kibble/tests.yml?branch=master&style=flat-square&label=Tests)](https://github.com/eigger/hass-kibble/actions/workflows/tests.yml)
-[![Validate](https://img.shields.io/github/actions/workflow/status/eigger/hass-kibble/validate.yml?branch=master&style=flat-square&label=Validate)](https://github.com/eigger/hass-kibble/actions/workflows/validate.yml)
-[![License](https://img.shields.io/github/license/eigger/hass-kibble?style=flat-square)](LICENSE)
-[![Analytics reporting installs](https://img.shields.io/badge/dynamic/json?style=flat-square&color=41BDF5&label=Usage&query=%24.kibble.total&url=https%3A%2F%2Fanalytics.home-assistant.io%2Fcustom_integrations.json)](https://analytics.home-assistant.io/)
+[![Release](https://img.shields.io/github/v/release/eigger/hass-kibble?style=flat)](https://github.com/eigger/hass-kibble/releases)
+[![HACS Custom](https://img.shields.io/badge/HACS-Custom-41BDF5?style=flat)](#설치)
+[![Home Assistant minimum](https://img.shields.io/badge/HA-%E2%89%A5%202025.3.0-41BDF5?style=flat)](hacs.json)
+[![Tests](https://img.shields.io/github/actions/workflow/status/eigger/hass-kibble/tests.yml?branch=master&style=flat&label=Tests)](https://github.com/eigger/hass-kibble/actions/workflows/tests.yml)
+[![Validate](https://img.shields.io/github/actions/workflow/status/eigger/hass-kibble/validate.yml?branch=master&style=flat&label=Validate)](https://github.com/eigger/hass-kibble/actions/workflows/validate.yml)
+[![License](https://img.shields.io/github/license/eigger/hass-kibble?style=flat)](LICENSE)
+[![Downloads](https://img.shields.io/github/downloads/eigger/hass-kibble/total?style=flat&color=41BDF5&label=Downloads)](https://github.com/eigger/hass-kibble/releases)
 <!-- hass-standards:badges:end -->
+<!-- hass-standards:header:end -->
+
+![Kibble](custom_components/kibble/brand/logo.png)
 
 Kibble을 Home Assistant에 **읽기 전용**으로 연결하는 커스텀 통합입니다. Kibble 서버의 오늘 요약, 개별 제공·섭취 및 케어 기록, 복약 지연 및 리마인더를 5분마다 읽어 센서로 표시합니다.
-
-[English](README.md) | [한국어](README.ko.md)
 
 ## 주요 기능
 
@@ -25,6 +31,10 @@ Kibble을 Home Assistant에 **읽기 전용**으로 연결하는 커스텀 통�
 Home Assistant **2025.3.0 이상**, 네트워크로 접근 가능한 Kibble 서버와 반려동물별 `state:read` 토큰이 필요합니다. 로컬 HTTP/HTTPS를 사용하며 Bluetooth 프록시는 필요하지 않습니다.
 
 ## 설치
+
+<!-- hass-standards:installation:start -->
+[![Open your Home Assistant instance and open a repository inside the Home Assistant Community Store.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=eigger&repository=hass-kibble&category=integration)
+<!-- hass-standards:installation:end -->
 
 1. HACS의 사용자 지정 저장소에 `eigger/hass-kibble`을 **Integration**으로 추가합니다.
 2. 통합을 설치하고 Home Assistant를 재시작합니다.
@@ -49,10 +59,25 @@ target:
 
 | 안내 | 내용 |
 |---|---|
-| [사용 안내](docs/ko/user-guide.md) | 설정·토큰, 엔티티/속성, 기록 보관, 오류 대응, Usage 집계 의미 |
+| [사용 안내](docs/ko/user-guide.md) | 설정·토큰, 엔티티/속성, 기록 보관, 오류 대응, Downloads 집계 의미 |
 | [개발과 테스트](docs/ko/development.md) | 실제 HA 테스트, 최소·최신 환경, 의존성과 실행 명령 |
 | [적용 기준](STANDARDS.md) · [체크리스트](ADOPTION_CHECKLIST.md) | 공통 규칙과 검증 기록 |
 
-## 지원과 라이선스
+<!-- hass-standards:support:start -->
+## 지원
 
-버그는 [GitHub Issues](https://github.com/eigger/hass-kibble/issues)에 남겨주세요. 질문·사용법·아이디어는 [GitHub Discussions](https://github.com/eigger/hass-kibble/discussions)를 이용하세요. [MIT 라이선스](LICENSE)를 따릅니다.
+- [Issues](https://github.com/eigger/hass-kibble/issues): 버그를 신고하거나 기능을 요청하세요.
+- [Discussions](https://github.com/eigger/hass-kibble/discussions): 질문하고 사용 경험을 공유하세요.
+<!-- hass-standards:support:end -->
+
+<!-- hass-standards:related-projects:start -->
+## 관련 프로젝트
+
+- [Kibble](https://github.com/eigger/kibble): 이 통합이 연결하는 반려동물 케어 서버이자 브랜드 아이콘의 원본입니다.
+<!-- hass-standards:related-projects:end -->
+
+<!-- hass-standards:license:start -->
+## 라이선스
+
+[MIT License](LICENSE) 라이선스로 배포됩니다.
+<!-- hass-standards:license:end -->
