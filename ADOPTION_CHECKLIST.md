@@ -158,7 +158,7 @@ BLE ESL의 메인 안내→세부 사용/문제 해결·개발 문서 연결 방
 
 ## 2026-10-23 공용 기준·ZIP 다운로드·브랜드 후속 검증
 
-- 대상: 기준 HEAD `890edfc70ebe8820abe8ba23e2eea29592ae84a8` 위의 로컬 작업 트리. 검토 기준 `4fa557eaa7142b87a6cae8b09c249cf50c3865c6` (당일 원격 main 확인).
+- 대상: 기준 HEAD `890edfc70ebe8820abe8ba23e2eea29592ae84a8` 위의 로컬 작업 트리. 검토 기준 `4ccbffa9af618b14d1a32a9939cbf1fcee6cb7a0` (당일 원격 main 확인).
 - 범위: README 공통 영역·Downloads·My HACS 링크, 공용 CI 최신 핀/준수 검사, ZIP release caller/metadata, pets 분류, 테스트 foundation, 아이콘 보존/로고 추가. 기존 최소 지원·current requirements·런타임 동작 보존.
 - 리뷰: root 구현/검증, `brand_assets` 브랜드 구현, 구현하지 않은 `review_adoption` 독립 리뷰. GOV-05의 CI 실행 변경 조건에 따라 별도 독립 리뷰를 수행했습니다.
 

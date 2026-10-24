@@ -11,9 +11,9 @@ concurrency:
   cancel-in-progress: true
 jobs:
   current:
-    uses: eigger/hass-repo-standards/.github/workflows/python-tests.yml@4fa557eaa7142b87a6cae8b09c249cf50c3865c6 # reviewed standards commit
+    uses: eigger/hass-repo-standards/.github/workflows/python-tests.yml@4ccbffa9af618b14d1a32a9939cbf1fcee6cb7a0 # reviewed standards commit
     with:
-      standards-ref: 4fa557eaa7142b87a6cae8b09c249cf50c3865c6
+      standards-ref: 4ccbffa9af618b14d1a32a9939cbf1fcee6cb7a0
       domain: kibble
       python-versions: '["3.14"]'
       lint-python-version: '3.14'
@@ -23,9 +23,9 @@ jobs:
       ha-components: 'button sensor'
       pytest-args: tests/components/kibble/ -v
   minimum-ha:
-    uses: eigger/hass-repo-standards/.github/workflows/python-tests.yml@4fa557eaa7142b87a6cae8b09c249cf50c3865c6 # reviewed standards commit
+    uses: eigger/hass-repo-standards/.github/workflows/python-tests.yml@4ccbffa9af618b14d1a32a9939cbf1fcee6cb7a0 # reviewed standards commit
     with:
-      standards-ref: 4fa557eaa7142b87a6cae8b09c249cf50c3865c6
+      standards-ref: 4ccbffa9af618b14d1a32a9939cbf1fcee6cb7a0
       domain: kibble
       python-versions: '["3.13"]'
       lint-python-version: '3.14'

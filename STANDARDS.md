@@ -1,7 +1,7 @@
 # 적용한 공통 규칙
 
-- 표준: https://github.com/eigger/hass-repo-standards/tree/4fa557eaa7142b87a6cae8b09c249cf50c3865c6
-- 참조 커밋 SHA: `4fa557eaa7142b87a6cae8b09c249cf50c3865c6`
+- 표준: https://github.com/eigger/hass-repo-standards/tree/4ccbffa9af618b14d1a32a9939cbf1fcee6cb7a0
+- 참조 커밋 SHA: `4ccbffa9af618b14d1a32a9939cbf1fcee6cb7a0`
 - 채택일: 2026-10-17
 - profile: integration / ha
 - 기본 브랜치: master; domain: kibble
@@ -17,7 +17,7 @@
 
 ## 2026-10-23 공용 기준·ZIP 다운로드·브랜드 후속
 
-이번 검토 기준은 `4fa557eaa7142b87a6cae8b09c249cf50c3865c6`이며, 아래 2026-10-17 기록은 당시 구현·검증 이력입니다. 이번 변경은 로컬 작업 트리이며 과거 기본 브랜치 CI 성공과 구분합니다. 최신 중앙 main을 `git ls-remote`로 확인하고 별도 임시 checkout에서 검토했습니다. 기존 중앙 checkout의 사용자 수정은 보존했습니다.
+이번 검토 기준은 `4ccbffa9af618b14d1a32a9939cbf1fcee6cb7a0`이며, 아래 2026-10-17 기록은 당시 구현·검증 이력입니다. 이번 변경은 로컬 작업 트리이며 과거 기본 브랜치 CI 성공과 구분합니다. 최신 중앙 main을 `git ls-remote`로 확인하고 별도 임시 checkout에서 검토했습니다. 기존 중앙 checkout의 사용자 수정은 보존했습니다.
 
 - DOC-01~06: 중앙 생성기로 양언어 header/support/related-projects/license 및 설치 관리 영역을 적용했습니다. 기존 설치·기능·예제·상세 문서 본문을 유지하고 Downloads 의미만 배포 방식에 맞춰 정정했습니다.
 - HACS-02~04: Custom 상태를 유지하며 `zip_release: true`, `filename: kibble.zip`과 중앙 Release caller를 추가했습니다. Downloads는 전체 릴리스 첨부 asset의 다운로드 합계이며 활성 설치 수가 아닙니다.
