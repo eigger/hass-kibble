@@ -182,3 +182,11 @@ BLE ESL의 메인 안내→세부 사용/문제 해결·개발 문서 연결 방
 ## 릴리스 0.1.6 준비 (2026-10-23)
 
 사용자가 릴리스를 명시 요청해 0.1.6으로 patch 증가했습니다. 이전 0.1.5 미게시 설명은 작업 당시 이력입니다. 최소 HA 2025.3.0, current HA 2026.10.2 및 데이터 계약은 유지합니다. 버전 변경 후 중앙 검사·actionlint·Ruff·format·최소/current 31개 테스트를 재검증했습니다. 이 커밋의 원격 Tests/Validate 성공을 확인한 후 일치하는 0.1.6 tag와 GitHub Release를 게시하고, published 이벤트의 ZIP 첨부 결과를 확인합니다. 실제 게시 결과는 후속 검증 기록으로 구분합니다.
+
+## 2026-10-25 Central v1.0.0 reference migration (partial)
+
+- User-requested partial migration from base `1865b929150e2b0585e23b6501d348ea9be5d6e6` to the published immutable central release `v1.0.0` resolved to `44349ee5621eea5d80e5c427f7a2435d2c2491bb`. Remote release attestation: `manage_integration.py verify-release --repository eigger/hass-repo-standards --tag v1.0.0 --resolved-sha 44349ee5621eea5d80e5c427f7a2435d2c2491bb` (remote published, non-prerelease, immutable tag/peeled SHA match; evidence retained outside this repository for the rollout).
+- Scope: only central reusable workflow/composite-action references, reusable-workflow `standards-ref`, the `.hass-standards.json` release descriptor, and current STANDARDS record. Existing workflow events/jobs/inputs/permissions, historical records, approved exceptions, manifest, support floor, requirements, integration code and tests are preserved.
+- Plan: `standards.reference.descriptor`, `standards.planning.reference_only_workflow_update`, `reference_only_workflow_content`, and `recorded_standards_update` generated/validated the narrow reference edits; before/after path hashes and operations are retained in the rollout plan.
+- Local validation (Python 3.14 shared rollout environment): central `scripts/check_integration.py` PASS, actionlint 1.7.12 PASS for every workflow, and `git diff --check` PASS. The same central checker baseline also PASSed before the migration. A path/fingerprint assertion confirms manifest, hacs/support metadata, requirements, custom integration code and tests are unchanged.
+- Review: generated reference-only change self-reviewed under GOV-05; root will perform the requested cross-review. GitHub Actions/PR CI and merge are pending; no HA/device/runtime test was run for this documentation/workflow-reference-only migration, and prior runtime evidence is not reused as this change's test result.
