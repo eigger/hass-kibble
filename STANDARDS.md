@@ -1,7 +1,8 @@
 # 적용한 공통 규칙
-
-- 표준: https://github.com/eigger/hass-repo-standards/tree/4ccbffa9af618b14d1a32a9939cbf1fcee6cb7a0
-- 참조 커밋 SHA: `4ccbffa9af618b14d1a32a9939cbf1fcee6cb7a0`
+- 표준: https://github.com/eigger/hass-repo-standards/tree/v1.0.0
+- 참조 커밋 SHA: 44349ee5621eea5d80e5c427f7a2435d2c2491bb
+- Standards release: v1.0.0
+- Resolved standards SHA: 44349ee5621eea5d80e5c427f7a2435d2c2491bb
 - 채택일: 2026-10-17
 - profile: integration / ha
 - 기본 브랜치: master; domain: kibble
