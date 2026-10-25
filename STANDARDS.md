@@ -77,3 +77,7 @@ PR #8에서 최신 테스트 갱신을 지원 하한 변경과 혼동해 HA 최�
 ## 2026-10-23 릴리스 0.1.6
 
 사용자의 릴리스 요청에 따라 통합 버전을 0.1.6으로 올려 위 공용화·ZIP 배포·브랜드 변경을 정식 배포합니다. 지원 최소 HA 2025.3.0은 유지합니다. 이전 절의 로컬 미게시 표기는 당시 검증 경계이며, 이 후속 릴리스의 실제 커밋·CI·ZIP 게시 결과는 체크리스트에 별도 기록합니다.
+
+## 2026-10-25 Standards workflow 분리
+
+기준 `v1.0.0` / `44349ee5621eea5d80e5c427f7a2435d2c2491bb`를 유지하고 기존 Validate의 중앙 검사 job만 `standards.yml`로 이동해 workflow/job을 `Standards`로 표시합니다. 단계·SHA·이벤트·예약·권한·timeout과 기존 Validate caller 입력은 유지합니다. 실제 검증과 미게시 범위는 [체크리스트](ADOPTION_CHECKLIST.md#2026-10-25-standards-workflow-분리)를 따릅니다.
