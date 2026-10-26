@@ -10,8 +10,8 @@
   ],
   "standards": {
     "kind": "release",
-    "tag": "v1.0.1",
-    "resolved_sha": "c9b4553184f9c27bdbe7bf8564eaf10153e9575b"
+    "tag": "v1.1.1",
+    "resolved_sha": "9876b521d401071345a13bd508f43d220852c77b"
   },
   "installation_links": {
     "README.md": "#installation",
@@ -47,5 +47,9 @@
     ],
     "integration_type": null,
     "source": "Kibble pet-bound state:read API exposes feeding, weight, medication and care records (README.md and custom_components/kibble/api.py). pets is the primary product/use category; no secondary category is needed. Reviewed 2026-10-23."
+  },
+  "standards_update": {
+    "provider": "dependabot",
+    "workflow": "update_standards.yml"
   }
 }
