@@ -49,4 +49,4 @@ target:
 
 ## Downloads 배지
 
-Downloads 배지는 모든 GitHub 릴리스 첨부 파일의 다운로드 합계이며 활성 설치 수나 고유 사용자 수가 아닙니다. HACS는 `kibble.zip` 릴리스 첨부 파일을 다운로드합니다. ZIP 배포 전 설치 이력과 GitHub의 자동 Source code ZIP/tarball 다운로드는 집계되지 않습니다. 미집계·조회 실패를 설치 수 0으로 해석하지 마세요.
+Downloads 배지는 현재 GitHub 릴리스 첨부 파일의 다운로드 합계이며 활성 설치 수나 고유 사용자 수가 아닙니다. HACS는 `kibble.zip` 릴리스 첨부 파일을 다운로드합니다. ZIP 배포 전 설치 이력과 GitHub의 자동 Source code ZIP/tarball 다운로드는 집계되지 않습니다. 미집계·조회 실패를 설치 수 0으로 해석하지 마세요.
