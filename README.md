@@ -12,7 +12,7 @@ A read-only Home Assistant custom integration for Kibble pet care records.
 [![Tests](https://img.shields.io/github/actions/workflow/status/eigger/hass-kibble/tests.yml?branch=master&style=flat&label=Tests)](https://github.com/eigger/hass-kibble/actions/workflows/tests.yml)
 [![Validate](https://img.shields.io/github/actions/workflow/status/eigger/hass-kibble/validate.yml?branch=master&style=flat&label=Validate)](https://github.com/eigger/hass-kibble/actions/workflows/validate.yml)
 [![License](https://img.shields.io/github/license/eigger/hass-kibble?style=flat)](LICENSE)
-[![Downloads](https://img.shields.io/github/downloads/eigger/hass-kibble/total?style=flat&color=41BDF5&label=Downloads)](https://github.com/eigger/hass-kibble/releases)
+[![Downloads](https://img.shields.io/github/downloads/eigger/hass-kibble/latest/total?style=flat&color=41BDF5&label=Downloads)](https://github.com/eigger/hass-kibble/releases)
 <!-- hass-standards:badges:end -->
 <!-- hass-standards:header:end -->
 

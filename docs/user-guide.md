@@ -49,4 +49,4 @@ This integration is read-only. Add records and change settings in Kibble. After 
 
 ## Downloads badge
 
-The Downloads badge reports downloads of attached assets across all GitHub releases, rather than active installations or unique users. HACS downloads the `kibble.zip` release asset. Installations before ZIP distribution and GitHub-generated Source code ZIP/tarball downloads are not counted. Missing data or a failed lookup does not mean zero installations.
+The Downloads badge reports downloads of attached assets of the current GitHub release, rather than active installations or unique users. HACS downloads the `kibble.zip` release asset. Installations before ZIP distribution and GitHub-generated Source code ZIP/tarball downloads are not counted. Missing data or a failed lookup does not mean zero installations.
