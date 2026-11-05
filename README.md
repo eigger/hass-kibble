@@ -1,5 +1,5 @@
 <!-- hass-standards:header:start -->
-# Kibble Home Assistant Integration (hass-kibble)
+# Kibble for Home Assistant
 
 A read-only Home Assistant custom integration for Kibble pet care records.
 
@@ -28,7 +28,9 @@ A **read-only** custom Home Assistant integration for Kibble. It polls the daily
 
 ## Requirements
 
-Home Assistant **2025.3.0 or newer**, a reachable Kibble server and a pet-bound `state:read` token. Uses local HTTP/HTTPS; no Bluetooth proxy is needed.
+- **Home Assistant:** 2025.3.0 or later.
+- **Server:** A reachable Kibble server over local HTTP or HTTPS.
+- **API token:** A pet-bound `state:read` token.
 
 ## Installation
 
@@ -36,12 +38,16 @@ Home Assistant **2025.3.0 or newer**, a reachable Kibble server and a pet-bound 
 [![Open your Home Assistant instance and open a repository inside the Home Assistant Community Store.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=eigger&repository=hass-kibble&category=integration)
 <!-- hass-standards:installation:end -->
 
-1. Add `eigger/hass-kibble` as a custom **Integration** repository in HACS.
-2. Install the integration and restart Home Assistant.
-3. Go to **Settings → Devices & services → Add integration → Kibble**.
-4. Enter the Kibble server URL and the pet's `state:read` token.
+1. Click the badge above to open the repository in Marketplace.
+2. If you need to add it yourself, go to **Settings → Marketplace → Add from link** and enter <https://github.com/eigger/hass-kibble>. Connect GitHub if prompted.
+3. Select **Install**. Restart Home Assistant if prompted, then continue to [Configuration](#configuration).
 
-[Token creation, manual installation and removal](docs/user-guide.md#installation)
+## Configuration
+
+1. Open **Settings → Devices & services → Add integration → Kibble**.
+2. Enter the server URL and the pet’s `state:read` token.
+
+See the [token setup guide](docs/user-guide.md#installation).
 
 ## Usage
 
@@ -59,7 +65,7 @@ This integration is **read-only**. Failed requests keep the last successful valu
 
 | Guide | Contents |
 |---|---|
-| [User guide](docs/user-guide.md) | Setup and tokens, entities/attributes, recorder behavior, troubleshooting, Downloads badge meaning |
+| [User guide](docs/user-guide.md) | Setup and tokens, entities/attributes, recorder behavior, troubleshooting |
 | [Development and tests](docs/development.md) | Actual HA tests, minimum/current environments, dependencies and commands |
 | [Adopted standards](STANDARDS.md) · [Checklist](ADOPTION_CHECKLIST.md) | Common rules and verification records |
 
