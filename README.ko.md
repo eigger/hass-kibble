@@ -1,5 +1,5 @@
 <!-- hass-standards:header:start -->
-# Kibble Home Assistant Integration (hass-kibble)
+# Kibble for Home Assistant
 
 Kibble 반려동물 케어 기록을 읽기 전용으로 연결하는 Home Assistant 커스텀 통합입니다.
 
@@ -28,7 +28,9 @@ Kibble을 Home Assistant에 **읽기 전용**으로 연결하는 커스텀 통�
 
 ## 요구사항
 
-Home Assistant **2025.3.0 이상**, 네트워크로 접근 가능한 Kibble 서버와 반려동물별 `state:read` 토큰이 필요합니다. 로컬 HTTP/HTTPS를 사용하며 Bluetooth 프록시는 필요하지 않습니다.
+- **Home Assistant:** 2025.3.0 이상.
+- **서버:** 로컬 HTTP 또는 HTTPS로 접속할 수 있는 Kibble 서버.
+- **API 토큰:** 반려동물별 `state:read` 토큰.
 
 ## 설치
 
@@ -36,12 +38,16 @@ Home Assistant **2025.3.0 이상**, 네트워크로 접근 가능한 Kibble 서�
 [![Open your Home Assistant instance and open a repository inside the Home Assistant Community Store.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=eigger&repository=hass-kibble&category=integration)
 <!-- hass-standards:installation:end -->
 
-1. HACS의 사용자 지정 저장소에 `eigger/hass-kibble`을 **Integration**으로 추가합니다.
-2. 통합을 설치하고 Home Assistant를 재시작합니다.
-3. **설정 → 기기 및 서비스 → 통합 추가 → Kibble**을 선택합니다.
-4. Kibble 서버 주소와 해당 반려동물의 `state:read` 토큰을 입력합니다.
+1. 위 배지를 클릭해 마켓플레이스에서 저장소를 엽니다.
+2. 저장소를 직접 추가하려면 **설정 → 마켓플레이스 → 링크에서 추가**에서 <https://github.com/eigger/hass-kibble>을 입력합니다. 안내가 표시되면 GitHub 계정을 연결합니다.
+3. **설치**를 선택합니다. 재시작 안내가 표시되면 Home Assistant를 재시작합니다. 설치가 끝나면 [설정](#설정)으로 이동합니다.
 
-[토큰 발급·수동 설치·제거 안내](docs/ko/user-guide.md#설치)
+## 설정
+
+1. **설정 → 기기 및 서비스 → 통합 추가 → Kibble**을 선택합니다.
+2. 서버 주소와 반려동물별 `state:read` 토큰을 입력합니다.
+
+[토큰 발급 안내](docs/ko/user-guide.md#설치)를 참고하세요.
 
 ## 사용 예시
 

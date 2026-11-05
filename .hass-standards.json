@@ -18,7 +18,7 @@
     "README.ko.md": "#설치"
   },
   "readme": {
-    "title": "Kibble Home Assistant Integration (hass-kibble)",
+    "title": "Kibble for Home Assistant",
     "descriptions": {
       "en": "A read-only Home Assistant custom integration for Kibble pet care records.",
       "ko": "Kibble 반려동물 케어 기록을 읽기 전용으로 연결하는 Home Assistant 커스텀 통합입니다."
